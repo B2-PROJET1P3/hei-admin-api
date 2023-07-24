@@ -263,8 +263,8 @@ paths:
   /students/{sId}/transcripts/{tId}/versions/latest/raw:
     post:
       tags:
-        - Version
-      operationId: createVersion
+        - Transcript
+      operationId: createTranscript
       requestBody:
           content:
             multipart/form-data:
@@ -275,11 +275,11 @@ paths:
                     type: string
       responses:
         '201':
-          description: Version created
+          description: Transcript created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Version'
+                $ref: '#/components/schemas/Transcript'
         '400':
           $ref: '#/components/responses/400'
         '403':
