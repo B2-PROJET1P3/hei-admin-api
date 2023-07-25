@@ -260,7 +260,7 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /students/{sId}/transcripts/{tId}/versions/latest/raw:
+  /students/{student_id}/transcripts/{transcription_id}/versions/latest/raw:
     post:
       tags:
         - Version
@@ -311,7 +311,7 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /students/{sId}/transcripts/{tId}/versions/{vId}/claims/{cId}:
+  /students/{student_id}/transcripts/{transcription_id}/versions/{version_id}/claims/{claim_id}:
     put:
       tags:
         - TranscriptVersion
@@ -322,7 +322,7 @@ paths:
           required: true
           schema:
             type: string
-        - name: transcript_id
+        - name: transcription_id
           in: path
           required: true
           schema:
