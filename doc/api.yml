@@ -276,12 +276,12 @@ paths:
           required: true
           schema:
             type: integer
-        - name: academicYear
+        - name: academic_year
           in: query
           required: false
           schema:
             type: string
-        - name: isDefinitive
+        - name: is_definitive
           in: query
           required: false
           schema:
