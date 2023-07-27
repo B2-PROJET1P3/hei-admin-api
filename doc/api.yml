@@ -529,9 +529,9 @@ paths:
   /students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/claims:
     get:
       tags:
-        - Teaching
+        - Transcript
       summary: Get all claims for a specific version of a student transcript.
-      operationId: getStudentTranscriptClaims
+      operationId: getStudentClaims
       parameters:
         - name: page
           in: query
@@ -564,7 +564,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/StudentTranscriptClaim'
+                  $ref: '#/components/schemas/Claim'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -578,7 +578,7 @@ paths:
   /students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/claims/{claim_id}:
     get:
       tags:
-        - Teaching
+        - Transcript
       summary: Get a claim of transcript version.
       operationId: getStudentClaimOfTranscriptVersion
       parameters:
@@ -608,7 +608,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StudentTranscriptClaim'
+                $ref: '#/components/schemas/Claim'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -621,7 +621,7 @@ paths:
           $ref: '#/components/responses/500'
     put:
       tags:
-        - Teaching
+        - Transcript
       summary: create or modify claim of Transcript Version
       operationId: putStudentClaimsOfTranscriptVersion
       parameters:
@@ -650,14 +650,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StudentTranscriptClaim'
+              $ref: '#/components/schemas/Claim'
       responses:
         '200':
           description: List of transcript claim submit.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StudentTranscriptClaim'
+                $ref: '#/components/schemas/Claim'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -1791,28 +1791,34 @@ components:
         creation_datetime:
           type: string
           format: date-time
-    StudentTranscriptClaim:
+
+
+    ClaimStatus:
+      type: string
+      enum:
+        - OPEN
+        - CLOSE
+
+    Claim:
       type: object
       properties:
         id:
           type: string
+        version_id:
+          type: string
         transcript_id:
           type: string
-        transcript_version_id:
+        reason:
           type: string
         status:
-          type: string
-          enum:
-            - OPEN
-            - CLOSE
-        creation_datetime:
-          type: string
-          format: date-time
+            $ref: '#/components/schemas/ClaimStatus'
         closed_datetime:
           type: string
           format: date-time
-        reason:
+        creation_datetime:
           type: string
+          format: date-time
+
     TranscriptTemplate:
       type: object
       properties:
