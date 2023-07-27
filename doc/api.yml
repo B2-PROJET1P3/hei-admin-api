@@ -291,10 +291,12 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+
+
   /students/{student_id}/transcripts:
     get:
       tags:
-        - Transcript
+        - Teaching
       summary: Get all transcript of a student
       operationId: getStudentTranscripts
       parameters:
@@ -332,24 +334,25 @@ paths:
           $ref: '#/components/responses/500'
     put:
       tags:
-        - Transcript
-      summary: Update transcripts if id are provided, create them otherwise
-      operationId: crupdateStudentTranscripts
+        - Teaching
+      summary: Create new transcript or update existing transcript
+      operationId: crudStudentTranscripts
       requestBody:
-        description: Transcripts to update
+        description: Groups to update
         required: true
         content:
           application/json:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/CrupdateTranscript'
+                $ref: '#/components/schemas/Transcript'
       parameters:
         - name: student_id
           in: path
           required: true
           schema:
             type: string
+
       responses:
         '200':
           description: List of transcripts for the specified student.
@@ -369,10 +372,11 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+
   /students/{student_id}/transcripts/{transcript_id}:
     get:
       tags:
-        - Transcript
+        - Teaching
       summary: Get a student transcript by identifier
       operationId: getStudentTranscriptById
       parameters:
@@ -403,50 +407,8 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /students/{student_id}/transcripts/{transcript_id}/versions:
-    get:
-      tags:
-        - Teaching
-      summary: Get all version of a student transcript
-      operationId: getAllStudentTranscriptVersion
-      parameters:
-        - name: page
-          in: query
-          schema:
-            $ref: '#/components/schemas/Page'
-        - name: page_size
-          in: query
-          schema:
-            $ref: '#/components/schemas/PageSize'
-        - name: student_id
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: transcript_id
-          in: path
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: All version of student transcript
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Version'
-        '400':
-          $ref: '#/components/responses/400'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
+
+
   /students/{student_id}/transcripts/{transcript_id}/versions/{version_id}:
     get:
       tags:
@@ -573,9 +535,9 @@ paths:
   /students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/claims:
     get:
       tags:
-        - Transcript
+        - Teaching
       summary: Get all claims for a specific version of a student transcript.
-      operationId: getStudentClaims
+      operationId: getStudentTranscriptClaims
       parameters:
         - name: page
           in: query
@@ -608,7 +570,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Claim'
+                  $ref: '#/components/schemas/StudentTranscriptClaim'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -622,7 +584,7 @@ paths:
   /students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/claims/{claim_id}:
     get:
       tags:
-        - Transcript
+        - Teaching
       summary: Get a claim of transcript version.
       operationId: getStudentClaimOfTranscriptVersion
       parameters:
@@ -652,7 +614,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Claim'
+                $ref: '#/components/schemas/StudentTranscriptClaim'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -665,7 +627,7 @@ paths:
           $ref: '#/components/responses/500'
     put:
       tags:
-        - Transcript
+        - Teaching
       summary: create or modify claim of Transcript Version
       operationId: putStudentClaimsOfTranscriptVersion
       parameters:
@@ -694,14 +656,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Claim'
+              $ref: '#/components/schemas/StudentTranscriptClaim'
       responses:
         '200':
           description: List of transcript claim submit.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Claim'
+                $ref: '#/components/schemas/StudentTranscriptClaim'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -1821,6 +1783,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StudentExamGrade'
+
     StudentTranscriptVersion:
       type: object
       properties:
@@ -1835,84 +1798,49 @@ components:
         creation_datetime:
           type: string
           format: date-time
-
-
-    ClaimStatus:
-      type: string
-      enum:
-        - OPEN
-        - CLOSE
-
-    Claim:
+    StudentTranscriptClaim:
       type: object
       properties:
         id:
           type: string
-        version_id:
-          type: string
         transcript_id:
           type: string
-        reason:
+        transcript_version_id:
           type: string
         status:
-            $ref: '#/components/schemas/ClaimStatus'
+          type: string
+          enum:
+            - OPEN
+            - CLOSE
+        creation_datetime:
+          type: string
+          format: date-time
         closed_datetime:
           type: string
           format: date-time
-        creation_datetime:
+        reason:
           type: string
-          format: date-time
 
-    TranscriptTemplate:
+    Transcript:
       type: object
       properties:
         id:
           type: string
-        semester:
-          $ref: '#/components/schemas/Semester'
-        academic_year:
-          type: string
-        is_definitive:
-          type: boolean
-        creation_datetime:
-          type: string
-          format: date-time
-    CrupdateTranscript:
-      allOf:
-        - $ref: '#/components/schemas/TranscriptTemplate'
-      type: object
-      properties:
         student_id:
           type: string
-    Transcript:
-      allOf:
-        - $ref: '#/components/schemas/TranscriptTemplate'
-      type: object
-      properties:
-        student:
-          $ref: '#/components/schemas/Student'
-    Semester:
-      type: string
-      enum:
-        - S1
-        - S2
-        - S3
-        - S4
-        - S5
-        - S6
-    Version:
-      type: object
-      properties:
-        id:
+        semester:
           type: string
-        transcript_id:
-          type: string
-        ref:
-          type: number
-        created_by_user_id:
-          type: string
-        created_by_user_role:
-          type: string
+          enum:
+            - S1
+            - S2
+            - S3
+            - S4
+            - S5
+            - S6
+        academic_year:
+          type: integer
+        is_definitive:
+          type: boolean
         creation_datetime:
           type: string
           format: date-time
