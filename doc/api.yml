@@ -403,6 +403,50 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  /students/{student_id}/transcripts/{transcript_id}/versions:
+    get:
+      tags:
+        - Teaching
+      summary: Get all version of a student transcript
+      operationId: getAllStudentTranscriptVersion
+      parameters:
+        - name: page
+          in: query
+          schema:
+            $ref: '#/components/schemas/Page'
+        - name: page_size
+          in: query
+          schema:
+            $ref: '#/components/schemas/PageSize'
+        - name: student_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: transcript_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: All version of student transcript
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Version'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
   /students/{student_id}/transcripts/{transcript_id}/versions/{version_id}:
     get:
       tags:
@@ -1856,6 +1900,20 @@ components:
         - S4
         - S5
         - S6
+    Version:
+      type: object
+      properties:
+        id:
+          type: string
+        transcript_id:
+          type: string
+        ref:
+          type: number
+        created_by:
+          type: string
+        creation_datetime:
+          type: string
+          format: date-time
     CreateFee:
       type: object
       properties:
