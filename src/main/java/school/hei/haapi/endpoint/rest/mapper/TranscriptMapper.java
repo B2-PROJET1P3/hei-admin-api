@@ -14,6 +14,7 @@ import school.hei.haapi.service.UserService;
 public class TranscriptMapper {
 
   private final UserService userService;
+
   public school.hei.haapi.endpoint.rest.model.Transcript toRest(Transcript transcript) {
     var restTranscript = new school.hei.haapi.endpoint.rest.model.Transcript();
     restTranscript.setId(transcript.getId());
