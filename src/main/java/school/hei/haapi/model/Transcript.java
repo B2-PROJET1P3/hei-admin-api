@@ -30,7 +30,7 @@ public class Transcript implements Serializable {
 
   @Type(type = "pgsql_enum")
   @Enumerated(EnumType.STRING)
-  private school.hei.haapi.endpoint.rest.model.Transcript semester;
+  private school.hei.haapi.endpoint.rest.model.Transcript.SemesterEnum semester;
 
   private Integer academicYear;
 
