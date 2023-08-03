@@ -30,7 +30,7 @@ public class TranscriptController {
                                                 @RequestParam PageFromOne page,
                                                 @RequestParam("page_size") BoundedPageSize pageSize) {
     return transcriptService.getAllTranscriptsByStudentId(studentId, page, pageSize).stream()
-        .map(transcriptMapper::toRest)
+        .map(transcript -> transcriptMapper.toRest(transcript))
         .collect(toUnmodifiableList());
   }
 
