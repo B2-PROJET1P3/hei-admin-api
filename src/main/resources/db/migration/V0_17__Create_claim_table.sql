@@ -9,8 +9,8 @@ create table if not exists "claim"
 (
     id                varchar
         constraint claim_pk primary key default uuid_generate_v4(),
-    version_id        varchar,
-    transcript_id     varchar,
+    version_id        varchar not null constraint version_fk references "version"(id),
+    transcript_id     varchar not null constraint transcript_fk references "transcript"(id),
     reason            varchar,
     status            claim_status             not null,
     closed_datetime   timestamp with time zone,
