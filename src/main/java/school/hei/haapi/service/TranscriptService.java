@@ -8,9 +8,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import school.hei.haapi.endpoint.rest.model.Transcript;
 import school.hei.haapi.model.BoundedPageSize;
 import school.hei.haapi.model.PageFromOne;
+import school.hei.haapi.model.Transcript;
 import school.hei.haapi.repository.TranscriptRepository;
 import school.hei.haapi.repository.UserRepository;
 
@@ -22,11 +22,11 @@ public class TranscriptService {
   private final TranscriptRepository transcriptRepository;
   private final UserRepository userRepository;
 
-  public Transcript getByIdAndStudentId(String transcriptId, String studentId) {
+  public school.hei.haapi.model.Transcript getByIdAndStudentId(String transcriptId, String studentId) {
     return transcriptRepository.getTranscriptByIdAndStudentId(transcriptId, studentId);
   }
 
-  public List<Transcript> getAllTranscriptsByStudentId(String studentId, PageFromOne page, BoundedPageSize pageSize) {
+  public List<school.hei.haapi.model.Transcript> getAllTranscriptsByStudentId(String studentId, PageFromOne page, BoundedPageSize pageSize) {
     Pageable pageable = PageRequest.of(
         page.getValue() - 1,
         pageSize.getValue(),
@@ -34,12 +34,12 @@ public class TranscriptService {
     return transcriptRepository.getAllTranscriptsByStudentId(studentId, pageable);
   }
 
-  public List<Transcript> getAllByStudentIdWithoutPagination(String studentId) {
+  public List<school.hei.haapi.model.Transcript> getAllByStudentIdWithoutPagination(String studentId) {
     return transcriptRepository.getAllByStudentId(studentId);
   }
 
   @Transactional
-  public List<Transcript> saveAll(List<Transcript> transcripts) {
+  public List<school.hei.haapi.model.Transcript> saveAll(List<Transcript> transcripts) {
     return transcriptRepository.saveAll(transcripts);
   }
 }
