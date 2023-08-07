@@ -1871,7 +1871,7 @@ components:
         semester:
           $ref: '#/components/schemas/Semester'
         academic_year:
-          type: string
+          type: integer
         is_definitive:
           type: boolean
         creation_datetime:
