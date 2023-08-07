@@ -7,7 +7,5 @@ import school.hei.haapi.endpoint.rest.model.Claim;
 @Component
 public class ClaimMapper {
   private UserMapper userMapper;
-  public Claim toRest(school.hei.haapi.model.Claim domain){
   
-  }
 }

@@ -21,7 +21,8 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import school.hei.haapi.endpoint.rest.model.StudentTranscriptClaim;
+import school.hei.haapi.endpoint.rest.model.ClaimStatus;
+
 import school.hei.haapi.endpoint.rest.model.StudentTranscriptVersion;
 import school.hei.haapi.repository.types.PostgresEnumType;
 
@@ -52,11 +53,10 @@ public class Claim {
   
   @Type(type = "pgsql_enum")
   @Enumerated(EnumType.STRING)
-  private StudentTranscriptClaim.StatusEnum statusEnum;
+  private ClaimStatus status;
   
-  private Instant closed_datetime;
+  private Instant closedDatetime;
   
   @CreationTimestamp
-  @Getter(AccessLevel.NONE)
-  private Instant creation_datetime;
+  private Instant creationDatetime;
 }

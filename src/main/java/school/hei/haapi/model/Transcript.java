@@ -1,45 +1,39 @@
 package school.hei.haapi.model;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+import java.time.Instant;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import school.hei.haapi.repository.types.PostgresEnumType;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.time.Instant;
-
-import static javax.persistence.FetchType.LAZY;
+import school.hei.haapi.endpoint.rest.model.Semester;
 
 @Entity
 @Table(name = "\"transcript\"")
 @Getter
 @Setter
 @ToString
-@TypeDef(name = "pgsql_enum", typeClass = PostgresEnumType.class)
-@Builder(toBuilder = true)
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transcript implements Serializable {
+public class Transcript {
   @Id
+  @GeneratedValue(strategy = IDENTITY)
   private String id;
-  
-  @ManyToOne(fetch = LAZY)
+  @ManyToOne
   @JoinColumn(name = "student_id")
   private User student;
-  
-  @Type(type = "pgsql_enum")
-  @Enumerated(EnumType.STRING)
-  private school.hei.haapi.endpoint.rest.model.Transcript.SemesterEnum semester;
-  
   private Integer academicYear;
-  
-  private Boolean isDefinitive;
-  
+  private Semester semester;
+  private boolean isDefinitive;
   private Instant creationDatetime;
 }

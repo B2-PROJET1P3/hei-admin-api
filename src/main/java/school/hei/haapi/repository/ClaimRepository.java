@@ -8,7 +8,7 @@ import school.hei.haapi.model.Claim;
 
 @Repository
 public interface ClaimRepository extends JpaRepository<Claim,String> {
-  List<Claim> findAllByVersionIdAndTranscriptId(String versionId, String  transcriptId);
+  List<Claim> findAllByVersion_IdAndTranscript_Id(String versionId, String  transcriptId);
   
-  Claim findByVersionIdAndTranscriptIdAndId(String versionId,String transcriptId,String id);
+  Claim findByVersion_IdAndTranscript_IdAndId(String versionId,String transcriptId,String id);
 }
