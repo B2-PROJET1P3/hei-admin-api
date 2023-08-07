@@ -1,3 +1,12 @@
+do
+$$
+    begin
+        if not exists(select from pg_type where typname = 'role') then
+            create type "role" as enum ('STUDENT', 'TEACHER', 'MANAGER');
+        end if;
+    end
+$$;
+
 create table if not exists "version"(
                              id  varchar
                                  constraint version_pk primary key default uuid_generate_v4(),
@@ -6,8 +15,8 @@ create table if not exists "version"(
                              ref int,
                              created_by_user_id  varchar                  not null
                                  constraint user_id_fk references "user"(id),
-                             created_by_user_role  varchar                  not null
-                                 constraint user_role_id_fk references "user"(role),
+                             created_by_user_role  role                  not null,
+
                              creation_datetime timestamp without time zone not null default now()
 );
 create index if not exists transcript_id_index on "version" (transcript_id);
