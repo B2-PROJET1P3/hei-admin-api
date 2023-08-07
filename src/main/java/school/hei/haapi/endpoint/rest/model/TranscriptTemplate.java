@@ -24,38 +24,39 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import school.hei.haapi.endpoint.rest.model.Semester;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * UserIdentifier
+ * TranscriptTemplate
  */
 @JsonPropertyOrder({
-  UserIdentifier.JSON_PROPERTY_ID,
-  UserIdentifier.JSON_PROPERTY_REF,
-  UserIdentifier.JSON_PROPERTY_FIRST_NAME,
-  UserIdentifier.JSON_PROPERTY_LAST_NAME,
-  UserIdentifier.JSON_PROPERTY_EMAIL
+  TranscriptTemplate.JSON_PROPERTY_ID,
+  TranscriptTemplate.JSON_PROPERTY_SEMESTER,
+  TranscriptTemplate.JSON_PROPERTY_ACADEMIC_YEAR,
+  TranscriptTemplate.JSON_PROPERTY_IS_DEFINITIVE,
+  TranscriptTemplate.JSON_PROPERTY_CREATION_DATETIME
 })
 @javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-07T12:04:02.522846600+03:00[Europe/Moscow]")
-public class UserIdentifier {
+public class TranscriptTemplate {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
 
-  public static final String JSON_PROPERTY_REF = "ref";
-  private String ref;
+  public static final String JSON_PROPERTY_SEMESTER = "semester";
+  private Semester semester;
 
-  public static final String JSON_PROPERTY_FIRST_NAME = "first_name";
-  private String firstName;
+  public static final String JSON_PROPERTY_ACADEMIC_YEAR = "academic_year";
+  private String academicYear;
 
-  public static final String JSON_PROPERTY_LAST_NAME = "last_name";
-  private String lastName;
+  public static final String JSON_PROPERTY_IS_DEFINITIVE = "is_definitive";
+  private Boolean isDefinitive;
 
-  public static final String JSON_PROPERTY_EMAIL = "email";
-  private String email;
+  public static final String JSON_PROPERTY_CREATION_DATETIME = "creation_datetime";
+  private java.time.Instant creationDatetime;
 
 
-  public UserIdentifier id(String id) {
+  public TranscriptTemplate id(String id) {
     this.id = id;
     return this;
   }
@@ -81,112 +82,112 @@ public class UserIdentifier {
   }
 
 
-  public UserIdentifier ref(String ref) {
-    this.ref = ref;
+  public TranscriptTemplate semester(Semester semester) {
+    this.semester = semester;
     return this;
   }
 
    /**
-   * Get ref
-   * @return ref
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(example = "STD000001", value = "")
-  @JsonProperty(JSON_PROPERTY_REF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getRef() {
-    return ref;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_REF)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRef(String ref) {
-    this.ref = ref;
-  }
-
-
-  public UserIdentifier firstName(String firstName) {
-    this.firstName = firstName;
-    return this;
-  }
-
-   /**
-   * Get firstName
-   * @return firstName
+   * Get semester
+   * @return semester
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonProperty(JSON_PROPERTY_SEMESTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getFirstName() {
-    return firstName;
+  public Semester getSemester() {
+    return semester;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonProperty(JSON_PROPERTY_SEMESTER)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setSemester(Semester semester) {
+    this.semester = semester;
   }
 
 
-  public UserIdentifier lastName(String lastName) {
-    this.lastName = lastName;
+  public TranscriptTemplate academicYear(String academicYear) {
+    this.academicYear = academicYear;
     return this;
   }
 
    /**
-   * Get lastName
-   * @return lastName
+   * Get academicYear
+   * @return academicYear
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonProperty(JSON_PROPERTY_ACADEMIC_YEAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getLastName() {
-    return lastName;
+  public String getAcademicYear() {
+    return academicYear;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonProperty(JSON_PROPERTY_ACADEMIC_YEAR)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
+  public void setAcademicYear(String academicYear) {
+    this.academicYear = academicYear;
   }
 
 
-  public UserIdentifier email(String email) {
-    this.email = email;
+  public TranscriptTemplate isDefinitive(Boolean isDefinitive) {
+    this.isDefinitive = isDefinitive;
     return this;
   }
 
    /**
-   * Get email
-   * @return email
+   * Get isDefinitive
+   * @return isDefinitive
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonProperty(JSON_PROPERTY_IS_DEFINITIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getEmail() {
-    return email;
+  public Boolean getIsDefinitive() {
+    return isDefinitive;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonProperty(JSON_PROPERTY_IS_DEFINITIVE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmail(String email) {
-    this.email = email;
+  public void setIsDefinitive(Boolean isDefinitive) {
+    this.isDefinitive = isDefinitive;
+  }
+
+
+  public TranscriptTemplate creationDatetime(java.time.Instant creationDatetime) {
+    this.creationDatetime = creationDatetime;
+    return this;
+  }
+
+   /**
+   * Get creationDatetime
+   * @return creationDatetime
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATION_DATETIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public java.time.Instant getCreationDatetime() {
+    return creationDatetime;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATION_DATETIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreationDatetime(java.time.Instant creationDatetime) {
+    this.creationDatetime = creationDatetime;
   }
 
 
   /**
-   * Return true if this UserIdentifier object is equal to o.
+   * Return true if this TranscriptTemplate object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -196,28 +197,28 @@ public class UserIdentifier {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserIdentifier userIdentifier = (UserIdentifier) o;
-    return Objects.equals(this.id, userIdentifier.id) &&
-        Objects.equals(this.ref, userIdentifier.ref) &&
-        Objects.equals(this.firstName, userIdentifier.firstName) &&
-        Objects.equals(this.lastName, userIdentifier.lastName) &&
-        Objects.equals(this.email, userIdentifier.email);
+    TranscriptTemplate transcriptTemplate = (TranscriptTemplate) o;
+    return Objects.equals(this.id, transcriptTemplate.id) &&
+        Objects.equals(this.semester, transcriptTemplate.semester) &&
+        Objects.equals(this.academicYear, transcriptTemplate.academicYear) &&
+        Objects.equals(this.isDefinitive, transcriptTemplate.isDefinitive) &&
+        Objects.equals(this.creationDatetime, transcriptTemplate.creationDatetime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, ref, firstName, lastName, email);
+    return Objects.hash(id, semester, academicYear, isDefinitive, creationDatetime);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserIdentifier {\n");
+    sb.append("class TranscriptTemplate {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    ref: ").append(toIndentedString(ref)).append("\n");
-    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
-    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    semester: ").append(toIndentedString(semester)).append("\n");
+    sb.append("    academicYear: ").append(toIndentedString(academicYear)).append("\n");
+    sb.append("    isDefinitive: ").append(toIndentedString(isDefinitive)).append("\n");
+    sb.append("    creationDatetime: ").append(toIndentedString(creationDatetime)).append("\n");
     sb.append("}");
     return sb.toString();
   }

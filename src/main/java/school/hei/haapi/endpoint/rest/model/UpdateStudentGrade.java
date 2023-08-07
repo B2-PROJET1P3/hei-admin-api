@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UpdateStudentGrade.JSON_PROPERTY_STUDENT_ID,
   UpdateStudentGrade.JSON_PROPERTY_SCORE
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-05T12:58:43.702904700+03:00[Europe/Moscow]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-07T12:04:02.522846600+03:00[Europe/Moscow]")
 public class UpdateStudentGrade {
   public static final String JSON_PROPERTY_STUDENT_ID = "student_id";
   private String studentId;

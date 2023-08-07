@@ -40,7 +40,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   UserAllOf.JSON_PROPERTY_ENTRANCE_DATETIME,
   UserAllOf.JSON_PROPERTY_STATUS
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-05T12:58:43.702904700+03:00[Europe/Moscow]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-07T12:04:02.522846600+03:00[Europe/Moscow]")
 public class UserAllOf {
   /**
    * Gets or Sets sex

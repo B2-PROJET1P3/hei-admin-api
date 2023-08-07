@@ -24,38 +24,43 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * UserIdentifier
+ * Version
  */
 @JsonPropertyOrder({
-  UserIdentifier.JSON_PROPERTY_ID,
-  UserIdentifier.JSON_PROPERTY_REF,
-  UserIdentifier.JSON_PROPERTY_FIRST_NAME,
-  UserIdentifier.JSON_PROPERTY_LAST_NAME,
-  UserIdentifier.JSON_PROPERTY_EMAIL
+  Version.JSON_PROPERTY_ID,
+  Version.JSON_PROPERTY_TRANSCRIPT_ID,
+  Version.JSON_PROPERTY_REF,
+  Version.JSON_PROPERTY_CREATED_BY_USER_ID,
+  Version.JSON_PROPERTY_CREATED_BY_USER_ROLE,
+  Version.JSON_PROPERTY_CREATION_DATETIME
 })
 @javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-07T12:04:02.522846600+03:00[Europe/Moscow]")
-public class UserIdentifier {
+public class Version {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
 
+  public static final String JSON_PROPERTY_TRANSCRIPT_ID = "transcript_id";
+  private String transcriptId;
+
   public static final String JSON_PROPERTY_REF = "ref";
-  private String ref;
+  private BigDecimal ref;
 
-  public static final String JSON_PROPERTY_FIRST_NAME = "first_name";
-  private String firstName;
+  public static final String JSON_PROPERTY_CREATED_BY_USER_ID = "created_by_user_id";
+  private String createdByUserId;
 
-  public static final String JSON_PROPERTY_LAST_NAME = "last_name";
-  private String lastName;
+  public static final String JSON_PROPERTY_CREATED_BY_USER_ROLE = "created_by_user_role";
+  private String createdByUserRole;
 
-  public static final String JSON_PROPERTY_EMAIL = "email";
-  private String email;
+  public static final String JSON_PROPERTY_CREATION_DATETIME = "creation_datetime";
+  private java.time.Instant creationDatetime;
 
 
-  public UserIdentifier id(String id) {
+  public Version id(String id) {
     this.id = id;
     return this;
   }
@@ -81,7 +86,33 @@ public class UserIdentifier {
   }
 
 
-  public UserIdentifier ref(String ref) {
+  public Version transcriptId(String transcriptId) {
+    this.transcriptId = transcriptId;
+    return this;
+  }
+
+   /**
+   * Get transcriptId
+   * @return transcriptId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getTranscriptId() {
+    return transcriptId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_TRANSCRIPT_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setTranscriptId(String transcriptId) {
+    this.transcriptId = transcriptId;
+  }
+
+
+  public Version ref(BigDecimal ref) {
     this.ref = ref;
     return this;
   }
@@ -91,102 +122,102 @@ public class UserIdentifier {
    * @return ref
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(example = "STD000001", value = "")
+  @ApiModelProperty(value = "")
   @JsonProperty(JSON_PROPERTY_REF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getRef() {
+  public BigDecimal getRef() {
     return ref;
   }
 
 
   @JsonProperty(JSON_PROPERTY_REF)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setRef(String ref) {
+  public void setRef(BigDecimal ref) {
     this.ref = ref;
   }
 
 
-  public UserIdentifier firstName(String firstName) {
-    this.firstName = firstName;
+  public Version createdByUserId(String createdByUserId) {
+    this.createdByUserId = createdByUserId;
     return this;
   }
 
    /**
-   * Get firstName
-   * @return firstName
+   * Get createdByUserId
+   * @return createdByUserId
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonProperty(JSON_PROPERTY_CREATED_BY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getFirstName() {
-    return firstName;
+  public String getCreatedByUserId() {
+    return createdByUserId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_FIRST_NAME)
+  @JsonProperty(JSON_PROPERTY_CREATED_BY_USER_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setCreatedByUserId(String createdByUserId) {
+    this.createdByUserId = createdByUserId;
   }
 
 
-  public UserIdentifier lastName(String lastName) {
-    this.lastName = lastName;
+  public Version createdByUserRole(String createdByUserRole) {
+    this.createdByUserRole = createdByUserRole;
     return this;
   }
 
    /**
-   * Get lastName
-   * @return lastName
+   * Get createdByUserRole
+   * @return createdByUserRole
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonProperty(JSON_PROPERTY_CREATED_BY_USER_ROLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getLastName() {
-    return lastName;
+  public String getCreatedByUserRole() {
+    return createdByUserRole;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_LAST_NAME)
+  @JsonProperty(JSON_PROPERTY_CREATED_BY_USER_ROLE)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
+  public void setCreatedByUserRole(String createdByUserRole) {
+    this.createdByUserRole = createdByUserRole;
   }
 
 
-  public UserIdentifier email(String email) {
-    this.email = email;
+  public Version creationDatetime(java.time.Instant creationDatetime) {
+    this.creationDatetime = creationDatetime;
     return this;
   }
 
    /**
-   * Get email
-   * @return email
+   * Get creationDatetime
+   * @return creationDatetime
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonProperty(JSON_PROPERTY_CREATION_DATETIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public String getEmail() {
-    return email;
+  public java.time.Instant getCreationDatetime() {
+    return creationDatetime;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_EMAIL)
+  @JsonProperty(JSON_PROPERTY_CREATION_DATETIME)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setEmail(String email) {
-    this.email = email;
+  public void setCreationDatetime(java.time.Instant creationDatetime) {
+    this.creationDatetime = creationDatetime;
   }
 
 
   /**
-   * Return true if this UserIdentifier object is equal to o.
+   * Return true if this Version object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -196,28 +227,30 @@ public class UserIdentifier {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserIdentifier userIdentifier = (UserIdentifier) o;
-    return Objects.equals(this.id, userIdentifier.id) &&
-        Objects.equals(this.ref, userIdentifier.ref) &&
-        Objects.equals(this.firstName, userIdentifier.firstName) &&
-        Objects.equals(this.lastName, userIdentifier.lastName) &&
-        Objects.equals(this.email, userIdentifier.email);
+    Version version = (Version) o;
+    return Objects.equals(this.id, version.id) &&
+        Objects.equals(this.transcriptId, version.transcriptId) &&
+        Objects.equals(this.ref, version.ref) &&
+        Objects.equals(this.createdByUserId, version.createdByUserId) &&
+        Objects.equals(this.createdByUserRole, version.createdByUserRole) &&
+        Objects.equals(this.creationDatetime, version.creationDatetime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, ref, firstName, lastName, email);
+    return Objects.hash(id, transcriptId, ref, createdByUserId, createdByUserRole, creationDatetime);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserIdentifier {\n");
+    sb.append("class Version {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    transcriptId: ").append(toIndentedString(transcriptId)).append("\n");
     sb.append("    ref: ").append(toIndentedString(ref)).append("\n");
-    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
-    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    createdByUserId: ").append(toIndentedString(createdByUserId)).append("\n");
+    sb.append("    createdByUserRole: ").append(toIndentedString(createdByUserRole)).append("\n");
+    sb.append("    creationDatetime: ").append(toIndentedString(creationDatetime)).append("\n");
     sb.append("}");
     return sb.toString();
   }

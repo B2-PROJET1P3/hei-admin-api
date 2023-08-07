@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   Payment.JSON_PROPERTY_AMOUNT,
   Payment.JSON_PROPERTY_COMMENT
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-05T12:58:43.702904700+03:00[Europe/Moscow]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-07T12:04:02.522846600+03:00[Europe/Moscow]")
 public class Payment {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;

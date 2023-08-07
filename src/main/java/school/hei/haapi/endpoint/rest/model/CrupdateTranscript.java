@@ -25,26 +25,25 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import school.hei.haapi.endpoint.rest.model.Semester;
-import school.hei.haapi.endpoint.rest.model.Student;
 import school.hei.haapi.endpoint.rest.model.TranscriptTemplate;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * Transcript
+ * CrupdateTranscript
  */
 @JsonPropertyOrder({
-  Transcript.JSON_PROPERTY_STUDENT,
-  Transcript.JSON_PROPERTY_ID,
-  Transcript.JSON_PROPERTY_SEMESTER,
-  Transcript.JSON_PROPERTY_ACADEMIC_YEAR,
-  Transcript.JSON_PROPERTY_IS_DEFINITIVE,
-  Transcript.JSON_PROPERTY_CREATION_DATETIME
+  CrupdateTranscript.JSON_PROPERTY_STUDENT_ID,
+  CrupdateTranscript.JSON_PROPERTY_ID,
+  CrupdateTranscript.JSON_PROPERTY_SEMESTER,
+  CrupdateTranscript.JSON_PROPERTY_ACADEMIC_YEAR,
+  CrupdateTranscript.JSON_PROPERTY_IS_DEFINITIVE,
+  CrupdateTranscript.JSON_PROPERTY_CREATION_DATETIME
 })
 @javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-07T12:04:02.522846600+03:00[Europe/Moscow]")
-public class Transcript {
-  public static final String JSON_PROPERTY_STUDENT = "student";
-  private Student student;
+public class CrupdateTranscript {
+  public static final String JSON_PROPERTY_STUDENT_ID = "student_id";
+  private String studentId;
 
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
@@ -62,33 +61,33 @@ public class Transcript {
   private java.time.Instant creationDatetime;
 
 
-  public Transcript student(Student student) {
-    this.student = student;
+  public CrupdateTranscript studentId(String studentId) {
+    this.studentId = studentId;
     return this;
   }
 
    /**
-   * Get student
-   * @return student
+   * Get studentId
+   * @return studentId
   **/
   @javax.annotation.Nullable
   @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_STUDENT)
+  @JsonProperty(JSON_PROPERTY_STUDENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
 
-  public Student getStudent() {
-    return student;
+  public String getStudentId() {
+    return studentId;
   }
 
 
-  @JsonProperty(JSON_PROPERTY_STUDENT)
+  @JsonProperty(JSON_PROPERTY_STUDENT_ID)
   @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStudent(Student student) {
-    this.student = student;
+  public void setStudentId(String studentId) {
+    this.studentId = studentId;
   }
 
 
-  public Transcript id(String id) {
+  public CrupdateTranscript id(String id) {
     this.id = id;
     return this;
   }
@@ -114,7 +113,7 @@ public class Transcript {
   }
 
 
-  public Transcript semester(Semester semester) {
+  public CrupdateTranscript semester(Semester semester) {
     this.semester = semester;
     return this;
   }
@@ -140,7 +139,7 @@ public class Transcript {
   }
 
 
-  public Transcript academicYear(String academicYear) {
+  public CrupdateTranscript academicYear(String academicYear) {
     this.academicYear = academicYear;
     return this;
   }
@@ -166,7 +165,7 @@ public class Transcript {
   }
 
 
-  public Transcript isDefinitive(Boolean isDefinitive) {
+  public CrupdateTranscript isDefinitive(Boolean isDefinitive) {
     this.isDefinitive = isDefinitive;
     return this;
   }
@@ -192,7 +191,7 @@ public class Transcript {
   }
 
 
-  public Transcript creationDatetime(java.time.Instant creationDatetime) {
+  public CrupdateTranscript creationDatetime(java.time.Instant creationDatetime) {
     this.creationDatetime = creationDatetime;
     return this;
   }
@@ -219,7 +218,7 @@ public class Transcript {
 
 
   /**
-   * Return true if this Transcript object is equal to o.
+   * Return true if this CrupdateTranscript object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -229,25 +228,25 @@ public class Transcript {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Transcript transcript = (Transcript) o;
-    return Objects.equals(this.student, transcript.student) &&
-        Objects.equals(this.id, transcript.id) &&
-        Objects.equals(this.semester, transcript.semester) &&
-        Objects.equals(this.academicYear, transcript.academicYear) &&
-        Objects.equals(this.isDefinitive, transcript.isDefinitive) &&
-        Objects.equals(this.creationDatetime, transcript.creationDatetime);
+    CrupdateTranscript crupdateTranscript = (CrupdateTranscript) o;
+    return Objects.equals(this.studentId, crupdateTranscript.studentId) &&
+        Objects.equals(this.id, crupdateTranscript.id) &&
+        Objects.equals(this.semester, crupdateTranscript.semester) &&
+        Objects.equals(this.academicYear, crupdateTranscript.academicYear) &&
+        Objects.equals(this.isDefinitive, crupdateTranscript.isDefinitive) &&
+        Objects.equals(this.creationDatetime, crupdateTranscript.creationDatetime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(student, id, semester, academicYear, isDefinitive, creationDatetime);
+    return Objects.hash(studentId, id, semester, academicYear, isDefinitive, creationDatetime);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Transcript {\n");
-    sb.append("    student: ").append(toIndentedString(student)).append("\n");
+    sb.append("class CrupdateTranscript {\n");
+    sb.append("    studentId: ").append(toIndentedString(studentId)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    semester: ").append(toIndentedString(semester)).append("\n");
     sb.append("    academicYear: ").append(toIndentedString(academicYear)).append("\n");

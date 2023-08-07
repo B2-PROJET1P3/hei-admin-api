@@ -39,7 +39,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
   CrupdateCourse.JSON_PROPERTY_CREDITS,
   CrupdateCourse.JSON_PROPERTY_TOTAL_HOURS
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-05T12:58:43.702904700+03:00[Europe/Moscow]")
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-07T12:04:02.522846600+03:00[Europe/Moscow]")
 public class CrupdateCourse {
   public static final String JSON_PROPERTY_MAIN_TEACHER_ID = "main_teacher_id";
   private String mainTeacherId;

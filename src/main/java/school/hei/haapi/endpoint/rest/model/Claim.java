@@ -24,81 +24,47 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import school.hei.haapi.endpoint.rest.model.ClaimStatus;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 
 /**
- * StudentTranscriptClaim
+ * Claim
  */
 @JsonPropertyOrder({
-  StudentTranscriptClaim.JSON_PROPERTY_ID,
-  StudentTranscriptClaim.JSON_PROPERTY_TRANSCRIPT_ID,
-  StudentTranscriptClaim.JSON_PROPERTY_TRANSCRIPT_VERSION_ID,
-  StudentTranscriptClaim.JSON_PROPERTY_STATUS,
-  StudentTranscriptClaim.JSON_PROPERTY_CREATION_DATETIME,
-  StudentTranscriptClaim.JSON_PROPERTY_CLOSED_DATETIME,
-  StudentTranscriptClaim.JSON_PROPERTY_REASON
+  Claim.JSON_PROPERTY_ID,
+  Claim.JSON_PROPERTY_VERSION_ID,
+  Claim.JSON_PROPERTY_TRANSCRIPT_ID,
+  Claim.JSON_PROPERTY_REASON,
+  Claim.JSON_PROPERTY_STATUS,
+  Claim.JSON_PROPERTY_CLOSED_DATETIME,
+  Claim.JSON_PROPERTY_CREATION_DATETIME
 })
-@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-05T12:58:43.702904700+03:00[Europe/Moscow]")
-public class StudentTranscriptClaim {
+@javax.annotation.processing.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", date = "2023-08-07T12:04:02.522846600+03:00[Europe/Moscow]")
+public class Claim {
   public static final String JSON_PROPERTY_ID = "id";
   private String id;
+
+  public static final String JSON_PROPERTY_VERSION_ID = "version_id";
+  private String versionId;
 
   public static final String JSON_PROPERTY_TRANSCRIPT_ID = "transcript_id";
   private String transcriptId;
 
-  public static final String JSON_PROPERTY_TRANSCRIPT_VERSION_ID = "transcript_version_id";
-  private String transcriptVersionId;
-
-  /**
-   * Gets or Sets status
-   */
-  public enum StatusEnum {
-    OPEN("OPEN"),
-    
-    CLOSE("CLOSE");
-
-    private String value;
-
-    StatusEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StatusEnum fromValue(String value) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-  }
+  public static final String JSON_PROPERTY_REASON = "reason";
+  private String reason;
 
   public static final String JSON_PROPERTY_STATUS = "status";
-  private StatusEnum status;
-
-  public static final String JSON_PROPERTY_CREATION_DATETIME = "creation_datetime";
-  private java.time.Instant creationDatetime;
+  private ClaimStatus status;
 
   public static final String JSON_PROPERTY_CLOSED_DATETIME = "closed_datetime";
   private java.time.Instant closedDatetime;
 
-  public static final String JSON_PROPERTY_REASON = "reason";
-  private String reason;
+  public static final String JSON_PROPERTY_CREATION_DATETIME = "creation_datetime";
+  private java.time.Instant creationDatetime;
 
 
-  public StudentTranscriptClaim id(String id) {
+  public Claim id(String id) {
     this.id = id;
     return this;
   }
@@ -124,7 +90,33 @@ public class StudentTranscriptClaim {
   }
 
 
-  public StudentTranscriptClaim transcriptId(String transcriptId) {
+  public Claim versionId(String versionId) {
+    this.versionId = versionId;
+    return this;
+  }
+
+   /**
+   * Get versionId
+   * @return versionId
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_VERSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public String getVersionId() {
+    return versionId;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_VERSION_ID)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setVersionId(String versionId) {
+    this.versionId = versionId;
+  }
+
+
+  public Claim transcriptId(String transcriptId) {
     this.transcriptId = transcriptId;
     return this;
   }
@@ -150,111 +142,7 @@ public class StudentTranscriptClaim {
   }
 
 
-  public StudentTranscriptClaim transcriptVersionId(String transcriptVersionId) {
-    this.transcriptVersionId = transcriptVersionId;
-    return this;
-  }
-
-   /**
-   * Get transcriptVersionId
-   * @return transcriptVersionId
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_TRANSCRIPT_VERSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public String getTranscriptVersionId() {
-    return transcriptVersionId;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_TRANSCRIPT_VERSION_ID)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setTranscriptVersionId(String transcriptVersionId) {
-    this.transcriptVersionId = transcriptVersionId;
-  }
-
-
-  public StudentTranscriptClaim status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * Get status
-   * @return status
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_STATUS)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-
-  public StudentTranscriptClaim creationDatetime(java.time.Instant creationDatetime) {
-    this.creationDatetime = creationDatetime;
-    return this;
-  }
-
-   /**
-   * Get creationDatetime
-   * @return creationDatetime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CREATION_DATETIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public java.time.Instant getCreationDatetime() {
-    return creationDatetime;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CREATION_DATETIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setCreationDatetime(java.time.Instant creationDatetime) {
-    this.creationDatetime = creationDatetime;
-  }
-
-
-  public StudentTranscriptClaim closedDatetime(java.time.Instant closedDatetime) {
-    this.closedDatetime = closedDatetime;
-    return this;
-  }
-
-   /**
-   * Get closedDatetime
-   * @return closedDatetime
-  **/
-  @javax.annotation.Nullable
-  @ApiModelProperty(value = "")
-  @JsonProperty(JSON_PROPERTY_CLOSED_DATETIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-
-  public java.time.Instant getClosedDatetime() {
-    return closedDatetime;
-  }
-
-
-  @JsonProperty(JSON_PROPERTY_CLOSED_DATETIME)
-  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
-  public void setClosedDatetime(java.time.Instant closedDatetime) {
-    this.closedDatetime = closedDatetime;
-  }
-
-
-  public StudentTranscriptClaim reason(String reason) {
+  public Claim reason(String reason) {
     this.reason = reason;
     return this;
   }
@@ -280,8 +168,86 @@ public class StudentTranscriptClaim {
   }
 
 
+  public Claim status(ClaimStatus status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Get status
+   * @return status
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public ClaimStatus getStatus() {
+    return status;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_STATUS)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setStatus(ClaimStatus status) {
+    this.status = status;
+  }
+
+
+  public Claim closedDatetime(java.time.Instant closedDatetime) {
+    this.closedDatetime = closedDatetime;
+    return this;
+  }
+
+   /**
+   * Get closedDatetime
+   * @return closedDatetime
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CLOSED_DATETIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public java.time.Instant getClosedDatetime() {
+    return closedDatetime;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CLOSED_DATETIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setClosedDatetime(java.time.Instant closedDatetime) {
+    this.closedDatetime = closedDatetime;
+  }
+
+
+  public Claim creationDatetime(java.time.Instant creationDatetime) {
+    this.creationDatetime = creationDatetime;
+    return this;
+  }
+
+   /**
+   * Get creationDatetime
+   * @return creationDatetime
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
+  @JsonProperty(JSON_PROPERTY_CREATION_DATETIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+
+  public java.time.Instant getCreationDatetime() {
+    return creationDatetime;
+  }
+
+
+  @JsonProperty(JSON_PROPERTY_CREATION_DATETIME)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public void setCreationDatetime(java.time.Instant creationDatetime) {
+    this.creationDatetime = creationDatetime;
+  }
+
+
   /**
-   * Return true if this StudentTranscriptClaim object is equal to o.
+   * Return true if this Claim object is equal to o.
    */
   @Override
   public boolean equals(Object o) {
@@ -291,32 +257,32 @@ public class StudentTranscriptClaim {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    StudentTranscriptClaim studentTranscriptClaim = (StudentTranscriptClaim) o;
-    return Objects.equals(this.id, studentTranscriptClaim.id) &&
-        Objects.equals(this.transcriptId, studentTranscriptClaim.transcriptId) &&
-        Objects.equals(this.transcriptVersionId, studentTranscriptClaim.transcriptVersionId) &&
-        Objects.equals(this.status, studentTranscriptClaim.status) &&
-        Objects.equals(this.creationDatetime, studentTranscriptClaim.creationDatetime) &&
-        Objects.equals(this.closedDatetime, studentTranscriptClaim.closedDatetime) &&
-        Objects.equals(this.reason, studentTranscriptClaim.reason);
+    Claim claim = (Claim) o;
+    return Objects.equals(this.id, claim.id) &&
+        Objects.equals(this.versionId, claim.versionId) &&
+        Objects.equals(this.transcriptId, claim.transcriptId) &&
+        Objects.equals(this.reason, claim.reason) &&
+        Objects.equals(this.status, claim.status) &&
+        Objects.equals(this.closedDatetime, claim.closedDatetime) &&
+        Objects.equals(this.creationDatetime, claim.creationDatetime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, transcriptId, transcriptVersionId, status, creationDatetime, closedDatetime, reason);
+    return Objects.hash(id, versionId, transcriptId, reason, status, closedDatetime, creationDatetime);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class StudentTranscriptClaim {\n");
+    sb.append("class Claim {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    versionId: ").append(toIndentedString(versionId)).append("\n");
     sb.append("    transcriptId: ").append(toIndentedString(transcriptId)).append("\n");
-    sb.append("    transcriptVersionId: ").append(toIndentedString(transcriptVersionId)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    creationDatetime: ").append(toIndentedString(creationDatetime)).append("\n");
-    sb.append("    closedDatetime: ").append(toIndentedString(closedDatetime)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    closedDatetime: ").append(toIndentedString(closedDatetime)).append("\n");
+    sb.append("    creationDatetime: ").append(toIndentedString(creationDatetime)).append("\n");
     sb.append("}");
     return sb.toString();
   }
