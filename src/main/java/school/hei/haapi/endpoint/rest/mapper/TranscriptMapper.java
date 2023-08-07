@@ -16,14 +16,13 @@ public class TranscriptMapper {
   private final UserService userService;
 
   public school.hei.haapi.endpoint.rest.model.Transcript toRest(Transcript transcript) {
-    var restTranscript = new school.hei.haapi.endpoint.rest.model.Transcript();
-    restTranscript.setId(transcript.getId());
-    restTranscript.setStudentId(transcript.getStudent().getId());
-    restTranscript.setSemester(transcript.getSemester());
-    restTranscript.setAcademicYear(transcript.getAcademicYear());
-    restTranscript.setIsDefinitive(transcript.getIsDefinitive());
-    restTranscript.setCreationDatetime(transcript.getCreationDatetime());
-    return restTranscript;
+    return  new school.hei.haapi.endpoint.rest.model.Transcript()
+        .id(transcript.getId())
+        .studentId(transcript.getStudent().getId())
+        .semester(transcript.getSemester())
+        .academicYear(transcript.getAcademicYear())
+        .isDefinitive(transcript.getIsDefinitive())
+        .creationDatetime(transcript.getCreationDatetime());
   }
 
   public Transcript toDomain(school.hei.haapi.endpoint.rest.model.Transcript restTranscript, String studentId) {
