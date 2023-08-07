@@ -10,3 +10,6 @@ create table if not exists "version"(
 );
 create index if not exists transcript_id_index on "version" (transcript_id);
 create index if not exists user_id_index on "version" (created_by_user_id);
+
+
+
