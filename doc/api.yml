@@ -1909,9 +1909,7 @@ components:
           type: string
         ref:
           type: number
-        created_by_user_id:
-          type: string
-        created_by_user_role:
+        created_by_user:
           type: string
         creation_datetime:
           type: string
