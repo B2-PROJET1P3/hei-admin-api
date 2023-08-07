@@ -15,7 +15,6 @@ import school.hei.haapi.SentryConf;
 import school.hei.haapi.endpoint.rest.api.TranscriptApi;
 import school.hei.haapi.endpoint.rest.client.ApiClient;
 import school.hei.haapi.endpoint.rest.client.ApiException;
-import school.hei.haapi.endpoint.rest.model.StudentTranscriptVersion;
 import school.hei.haapi.endpoint.rest.model.Transcript;
 import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
 import school.hei.haapi.integration.conf.AbstractContextInitializer;
@@ -41,46 +40,6 @@ class TranscriptIT {
 
   private static ApiClient anApiClient(String token) {
     return TestUtils.anApiClient(token, TranscriptIT.ContextInitializer.SERVER_PORT);
-  }
-
-  static Transcript transcript1() {
-    return new Transcript()
-        .id(TRANSCRIPT1_ID)
-        .studentId(STUDENT1_ID)
-        .semester(Transcript.SemesterEnum.S1)
-        .academicYear(2021)
-        .isDefinitive(false)
-        .creationDatetime(Instant.parse("2021-11-08T08:25:24.00Z"));
-  }
-
-  static Transcript transcript2() {
-    return new Transcript()
-        .id(TRANSCRIPT2_ID)
-        .studentId(STUDENT1_ID)
-        .semester(Transcript.SemesterEnum.S2)
-        .academicYear(2022)
-        .isDefinitive(false)
-        .creationDatetime(Instant.parse("2022-11-10T08:25:25.00Z"));
-  }
-
-  static Transcript transcript3() {
-    return new Transcript()
-        .id(TRANSCRIPT2_ID)
-        .studentId(STUDENT2_ID)
-        .semester(Transcript.SemesterEnum.S6)
-        .academicYear(2023)
-        .isDefinitive(true)
-        .creationDatetime(Instant.parse("2023-11-10T08:25:25.00Z"));
-  }
-
-  static Transcript transcript4() {
-    return new Transcript()
-        .id(TRANSCRIPT4_ID)
-        .studentId(STUDENT2_ID)
-        .semester(Transcript.SemesterEnum.S5)
-        .academicYear(2024)
-        .isDefinitive(true)
-        .creationDatetime(Instant.parse("2024-11-12T08:25:26.00Z"));
   }
 
   @BeforeEach
