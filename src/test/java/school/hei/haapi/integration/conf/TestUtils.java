@@ -16,6 +16,7 @@ import school.hei.haapi.endpoint.rest.model.CrupdateCourse;
 import school.hei.haapi.endpoint.rest.model.EnableStatus;
 import school.hei.haapi.endpoint.rest.model.Fee;
 import school.hei.haapi.endpoint.rest.model.Teacher;
+import school.hei.haapi.endpoint.rest.model.Transcript;
 import school.hei.haapi.endpoint.rest.model.UpdateStudentCourse;
 import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
@@ -56,6 +57,11 @@ public class TestUtils {
   public static final String COURSE3_ID = "course3_id";
   public static final String COURSE4_ID = "course4_id";
   public static final String COURSE5_ID = "course5_id";
+  public static final String TRANSCRIPT1_ID = "transcript1_id";
+  public static final String TRANSCRIPT2_ID = "transcript2_id";
+  public static final String TRANSCRIPT4_ID = "transcript4_id";
+  public static final String NEW_TRANSCRIPT_ID = "new_transcript_id";
+  public static final String NON_EXISTANT_STUDENT_ID = "non_existant_student_id";
 
   public static final String BAD_TOKEN = "bad_token";
   public static final String STUDENT1_TOKEN = "student1_token";
@@ -298,6 +304,47 @@ public class TestUtils {
         .creationDatetime(Instant.parse("2022-12-08T08:25:24.00Z"))
         .dueDatetime(Instant.parse("2021-12-09T08:25:24.00Z"));
   }
+
+  public static Transcript transcript1() {
+    return new Transcript()
+        .id(TRANSCRIPT1_ID)
+        .studentId(STUDENT1_ID)
+        .semester(Transcript.SemesterEnum.S1)
+        .academicYear(2021)
+        .isDefinitive(false)
+        .creationDatetime(Instant.parse("2021-11-08T08:25:24.00Z"));
+  }
+
+  public static Transcript transcript2() {
+    return new Transcript()
+        .id(TRANSCRIPT2_ID)
+        .studentId(STUDENT1_ID)
+        .semester(Transcript.SemesterEnum.S2)
+        .academicYear(2022)
+        .isDefinitive(false)
+        .creationDatetime(Instant.parse("2022-11-10T08:25:25.00Z"));
+  }
+
+  static Transcript transcript3() {
+    return new Transcript()
+            .id(TRANSCRIPT2_ID)
+            .studentId(STUDENT2_ID)
+            .semester(Transcript.SemesterEnum.S6)
+            .academicYear(2023)
+            .isDefinitive(true)
+            .creationDatetime(Instant.parse("2023-11-10T08:25:25.00Z"));
+  }
+
+  static Transcript transcript4() {
+    return new Transcript()
+        .id(TRANSCRIPT4_ID)
+        .studentId(STUDENT2_ID)
+            .semester(Transcript.SemesterEnum.S5)
+            .academicYear(2024)
+            .isDefinitive(true)
+        .creationDatetime(Instant.parse("2024-11-12T08:25:26.00Z"));
+  }
+
 
   public static CreateFee creatableFee1() {
     return new CreateFee()
