@@ -81,6 +81,8 @@ public class User implements Serializable {
   @OneToMany(mappedBy = "userId")
   private List<StudentCourse> studentCourses;
 
+  @OneToMany(mappedBy = "createdBy")
+  private List<Version> transcriptVersions;
   @Override
   public boolean equals(Object o) {
     if (this == o) {
