@@ -1,6 +1,9 @@
 package school.hei.haapi.integration;
 
+import java.time.Instant;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,38 +13,36 @@ import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import school.hei.haapi.SentryConf;
 import school.hei.haapi.endpoint.rest.api.TranscriptApi;
-import school.hei.haapi.endpoint.rest.api.UsersApi;
 import school.hei.haapi.endpoint.rest.client.ApiClient;
 import school.hei.haapi.endpoint.rest.client.ApiException;
-import school.hei.haapi.endpoint.rest.model.Course;
-import school.hei.haapi.endpoint.rest.model.CourseDirection;
+import school.hei.haapi.endpoint.rest.model.ClaimStatus;
 import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
 import school.hei.haapi.integration.conf.AbstractContextInitializer;
 import school.hei.haapi.integration.conf.TestUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
-import static school.hei.haapi.endpoint.rest.model.CourseStatus.LINKED;
-import static school.hei.haapi.endpoint.rest.model.CourseStatus.UNLINKED;
+import school.hei.haapi.endpoint.rest.model.Claim;
+
+import static org.springframework.test.util.AssertionErrors.assertTrue;
+import static school.hei.haapi.integration.conf.TestUtils.CLAIM1_ID;
+import static school.hei.haapi.integration.conf.TestUtils.CLAIM2_ID;
+import static school.hei.haapi.integration.conf.TestUtils.FEE2_ID;
 import static school.hei.haapi.integration.conf.TestUtils.MANAGER1_TOKEN;
 import static school.hei.haapi.integration.conf.TestUtils.STUDENT1_ID;
 import static school.hei.haapi.integration.conf.TestUtils.STUDENT1_TOKEN;
 import static school.hei.haapi.integration.conf.TestUtils.STUDENT2_ID;
 import static school.hei.haapi.integration.conf.TestUtils.TEACHER1_TOKEN;
+import static school.hei.haapi.integration.conf.TestUtils.TRANSCRIPT1_ID;
+import static school.hei.haapi.integration.conf.TestUtils.TRANSCRIPT2_ID;
+import static school.hei.haapi.integration.conf.TestUtils.VERSION1_ID;
+import static school.hei.haapi.integration.conf.TestUtils.VERSION2_ID;
 import static school.hei.haapi.integration.conf.TestUtils.anAvailableRandomPort;
 import static school.hei.haapi.integration.conf.TestUtils.assertThrowsApiException;
 import static school.hei.haapi.integration.conf.TestUtils.assertThrowsForbiddenException;
 import static school.hei.haapi.integration.conf.TestUtils.course1;
-import static school.hei.haapi.integration.conf.TestUtils.course2;
-import static school.hei.haapi.integration.conf.TestUtils.course3;
-import static school.hei.haapi.integration.conf.TestUtils.course4;
-import static school.hei.haapi.integration.conf.TestUtils.course5;
-import static school.hei.haapi.integration.conf.TestUtils.crupdatedCourse1;
 import static school.hei.haapi.integration.conf.TestUtils.crupdatedCourse2;
-import static school.hei.haapi.integration.conf.TestUtils.isBefore;
 import static school.hei.haapi.integration.conf.TestUtils.setUpCognito;
-import static school.hei.haapi.integration.conf.TestUtils.updateStudentCourse;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @Testcontainers
@@ -62,47 +63,114 @@ class ClaimIT {
     setUpCognito(cognitoComponentMock);
   }
   
+  public static Claim claim1() {
+    Claim claim = new Claim();
+    claim.setId("claim_1");
+    claim.setVersionId("version1_id");
+    claim.setTranscriptId("transcript1_id");
+    claim.setReason("string");
+    claim.setStatus(ClaimStatus.valueOf("OPEN"));
+    claim.setCreationDatetime(Instant.parse("2023-08-08T16:23:09.191Z"));
+    return claim;
+  }
+  
+  public static Claim claim2() {
+    Claim claim = new Claim();
+    claim.setId("claim_2");
+    claim.setVersionId("version2_id");
+    claim.setTranscriptId("transcript2_id");
+    claim.setReason("string");
+    claim.setStatus(ClaimStatus.valueOf("CLOSE"));
+    claim.setClosedDatetime(Instant.parse("2023-10-08T16:23:09.191Z"));
+    claim.setCreationDatetime(Instant.parse("2023-08-08T16:23:09.191Z"));
+    return claim;
+  }
   @Test
-  void student_read_ok() throws ApiException {
+  void student_read_ko() throws ApiException {
     ApiClient student1Client = anApiClient(STUDENT1_TOKEN);
-    TranscriptApi
+    TranscriptApi api = new TranscriptApi(student1Client);
+    
+    assertThrowsForbiddenException(() -> api.getStudentClaims(CLAIM1_ID,TRANSCRIPT1_ID,VERSION1_ID,1,5));
   }
   
   @Test
   void student_create_ok() throws ApiException {
+    ApiClient student1Client = anApiClient(STUDENT1_TOKEN);
+    TranscriptApi api = new TranscriptApi(student1Client);
+    
+    Claim claim = api.putStudentClaimsOfTranscriptVersion(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,CLAIM1_ID,claim1());
+    
+    assertEquals(claim,claim1());
+  }
   
+  @Test
+  void student_create_ko() throws ApiException {
+    ApiClient student1Client = anApiClient(STUDENT1_TOKEN);
+    TranscriptApi api = new TranscriptApi(student1Client);
+    
+    assertThrowsApiException(
+        "{\"type\":\"400 BAD_REQUEST\",\"message\":\"transcriptId in path is different from transcriptId in body.\"}",
+        () -> api.putStudentClaimsOfTranscriptVersion(STUDENT1_ID,TRANSCRIPT2_ID,VERSION1_ID,CLAIM1_ID,claim1()));
   }
   
   @Test
   void teacher_read_ok() throws ApiException {
-  
+    ApiClient teacher1Client = anApiClient(TEACHER1_TOKEN);
+    TranscriptApi api = new TranscriptApi(teacher1Client);
+    
+    List<Claim> claim = api.getStudentClaims(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,1,2);
+    
+    Assertions.assertTrue(claim.contains(claim1()));
+    Assertions.assertEquals(2,claim.size());
   }
   
   
   @Test
-  void student_read_own_student_claim_ok() throws ApiException {
-  
-  }
-  
-  @Test
-  void student_read_student_claim_ko() {
-  
+  void teacher_write_ko() throws ApiException {
+    ApiClient teacher1Client = anApiClient(TEACHER1_TOKEN);
+    TranscriptApi api = new TranscriptApi(teacher1Client);
+    
+    assertThrowsForbiddenException(() -> api.putStudentClaimsOfTranscriptVersion(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,CLAIM1_ID,claim1()));
   }
   
   
   @Test
   void manager_update_student_claim() throws ApiException {
-  
+    ApiClient manager1Client = anApiClient(MANAGER1_TOKEN);
+    TranscriptApi api = new TranscriptApi(manager1Client);
+   Claim claim = api.putStudentClaimsOfTranscriptVersion(STUDENT2_ID,TRANSCRIPT2_ID,VERSION2_ID,CLAIM2_ID,claim2());
+   
+   assertEquals(claim,claim2());
   }
   
   @Test
   void manager_crupdate_ok() throws ApiException {
+    ApiClient manager1Client = anApiClient(MANAGER1_TOKEN);
+    TranscriptApi api = new TranscriptApi(manager1Client);
+    
+    Claim claim = api.putStudentClaimsOfTranscriptVersion(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,CLAIM1_ID,claim1());
   
+    assertEquals(claim,claim1());
+  }
+  
+  @Test
+  void manager_read_ok() throws ApiException {
+    ApiClient manager1client = anApiClient(TEACHER1_TOKEN);
+    TranscriptApi api = new TranscriptApi(manager1client);
+    
+    List<Claim> claim = api.getStudentClaims(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,1,2);
+    
+    Assertions.assertTrue(claim.contains(claim1()));
   }
   
   @Test
   void manager_crupdate_ko() {
-  
+    ApiClient manager1Client = anApiClient(MANAGER1_TOKEN);
+    TranscriptApi api = new TranscriptApi(manager1Client);
+    
+    assertThrowsApiException(
+        "{\"type\":\"400 BAD_REQUEST\",\"message\":\"versionId in path is different from versionId in body.\"}",
+        () -> api.putStudentClaimsOfTranscriptVersion(STUDENT1_ID,TRANSCRIPT1_ID,VERSION2_ID,CLAIM1_ID,claim1()));
   }
   
   static class ContextInitializer extends AbstractContextInitializer {

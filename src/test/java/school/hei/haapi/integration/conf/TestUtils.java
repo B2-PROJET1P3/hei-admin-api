@@ -59,6 +59,11 @@ public class TestUtils {
   public static final String CLAIM1_ID = "claim1_id";
   public static final String CLAIM2_ID = "claim2_id";
   public static final String CLAIM3_ID = "claim3_id";
+  public static final String VERSION1_ID = "version1_id";
+  public static final String VERSION2_ID = "version2_id";
+
+  public static final String TRANSCRIPT1_ID = "transcript1_id";
+  public static final String TRANSCRIPT2_ID = "transcript2_id";
   
 
   public static final String BAD_TOKEN = "bad_token";
