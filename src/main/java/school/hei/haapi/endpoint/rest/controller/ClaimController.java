@@ -13,10 +13,12 @@ import school.hei.haapi.endpoint.rest.mapper.ClaimMapper;
 import school.hei.haapi.endpoint.rest.mapper.TranscriptMapper;
 import school.hei.haapi.endpoint.rest.mapper.VersionMapper;
 import school.hei.haapi.endpoint.rest.model.Claim;
+import school.hei.haapi.endpoint.rest.validator.CreateClaimValidator;
 import school.hei.haapi.model.BoundedPageSize;
 import school.hei.haapi.model.PageFromOne;
 import school.hei.haapi.model.Transcript;
 import school.hei.haapi.model.Version;
+import school.hei.haapi.model.validator.ClaimValidator;
 import school.hei.haapi.service.ClaimService;
 import school.hei.haapi.service.TranscriptService;
 import school.hei.haapi.service.VersionService;
@@ -27,6 +29,7 @@ public class ClaimController {
 
   private final ClaimService claimService;
   private final ClaimMapper claimMapper;
+  private final CreateClaimValidator createClaimValidator;
  
   
   @GetMapping("/students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/claims")
@@ -48,17 +51,17 @@ public class ClaimController {
   }
   
   @PutMapping("/students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/claims/{claims_id}")
-  public List<Claim> crupdateClaim(@PathVariable(value = "student_id") String studentId,
+  public Claim crupdateClaim(@PathVariable(value = "student_id") String studentId,
                              @PathVariable(value = "version_id") String versionId,
                             @PathVariable(value = "transcript_id") String transcriptId,
                             @PathVariable(value = "claims_id") String claimId,
-                            @RequestBody List<Claim> claim
+                            @RequestBody Claim claim
   ){
    
+    createClaimValidator.accept(claim,transcriptId,versionId);
+    createClaimValidator.accept(claim);
     
-    
-    return claimService.crupdateClaim(claim,studentId,versionId,transcriptId,claimId).stream().map(claimMapper::toRest).collect(
-        Collectors.toUnmodifiableList());
+    return claimMapper.toRest(claimService.crupdateClaim(claim,studentId,versionId,transcriptId,claimId));
   }
   
   

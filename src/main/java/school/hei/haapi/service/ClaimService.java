@@ -40,17 +40,13 @@ public class ClaimService {
     return claimRepository.findAllByVersion_IdAndTranscript_Id(versionId, transcriptId,pageable);
   }
   
-  public List<Claim> crupdateClaim(List<school.hei.haapi.endpoint.rest.model.Claim> toUpdate, String studentId, String versionId, String transcriptId, String claimId){
+  public Claim crupdateClaim(school.hei.haapi.endpoint.rest.model.Claim toUpdate, String studentId, String versionId, String transcriptId, String claimId){
     Version version = versionService.getVersionById(studentId,transcriptId,versionId);
     Transcript transcript= transcriptService.getTranscriptById(studentId,transcriptId);
-   List<Claim> toSave =  toUpdate.stream().map(claim -> updateClaim(toUpdate.get(0),version,transcript)).collect(
-       Collectors.toList());
+   Claim toSave =  claimMapper.toDomain(toUpdate,version,transcript);
     
-    return claimRepository.saveAll(toSave);
+    return claimRepository.save(toSave);
   }
   
-  public Claim updateClaim(school.hei.haapi.endpoint.rest.model.Claim rest,Version version,Transcript transcript){
-     return claimMapper.toDomain(rest,version,transcript);
-    
-  }
+ 
 }

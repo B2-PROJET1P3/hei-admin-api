@@ -32,7 +32,7 @@ public class Version {
   private Transcript transcript;
   private Integer ref;
   @ManyToOne
-  @JoinColumn(name = "user_id")
+  @JoinColumn(name = "created_by_user_id")
   private User createdBy;
   private Instant creationDatetime;
 }

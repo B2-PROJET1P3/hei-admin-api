@@ -4,6 +4,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.time.Instant;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -15,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Type;
 import school.hei.haapi.endpoint.rest.model.Semester;
 
 @Entity
@@ -30,9 +33,11 @@ public class Transcript {
   @GeneratedValue(strategy = IDENTITY)
   private String id;
   @ManyToOne
-  @JoinColumn(name = "student_id")
+  @JoinColumn(name = "student")
   private User student;
   private Integer academicYear;
+  @Type(type = "pgsql_enum")
+  @Enumerated(EnumType.STRING)
   private Semester semester;
   private boolean isDefinitive;
   private Instant creationDatetime;

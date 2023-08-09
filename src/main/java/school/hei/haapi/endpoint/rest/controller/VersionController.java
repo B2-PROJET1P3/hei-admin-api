@@ -54,28 +54,28 @@ public class VersionController {
     return mapper.toRest(service.getVersionById(studentId,transcriptId,versionId),transcript,student);
   }
   
-  @GetMapping("/students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/raw:")
-  public MultipartFile getStudentTranscriptVersionPdf(@PathVariable(value = "student_id") String studentId,
-                                                      @PathVariable(value = "transcript_id") String transcriptId,
-                                                      @PathVariable(value = "version_id") String versionId){
+ // @GetMapping("/students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/raw:")
+  //public MultipartFile getStudentTranscriptVersionPdf(@PathVariable(value = "student_id") String studentId,
+  //                                                    @PathVariable(value = "transcript_id") String transcriptId,
+    //                                                  @PathVariable(value = "version_id") String versionId){
     //Return s3Service.get(versionId+".pdf")
     // BytetoFile file = newBytefile(s3Service) return CustomMutlipartfile
     
-  }
+  //}
   
 
-  @PostMapping("/students/{student_id}/transcripts/{transcript_id}/versions/latest/raw:")
-  public Version putStudentTranscriptVersionPdf(@PathVariable(value = "student_id") String studentId,
-                                                @PathVariable(value = "transcript_id") String transcriptId,
-                                                @RequestBody MultipartFile pdf){
+ // @PostMapping("/students/{student_id}/transcripts/{transcript_id}/versions/latest/raw:")
+  //public Version putStudentTranscriptVersionPdf(@PathVariable(value = "student_id") String studentId,
+    //                                            @PathVariable(value = "transcript_id") String transcriptId,
+      //                                          @RequestBody MultipartFile pdf){
    
    // s3Service to post pdf,,pdf)
-    Student student = userMapper.toRestStudent(userService.getById(studentId));
-    Transcript transcript = transcriptMapper.toRest(transcriptService.getTranscriptById(studentId, transcriptId),
-        student);
+   // Student student = userMapper.toRestStudent(userService.getById(studentId));
+   // Transcript transcript = transcriptMapper.toRest(transcriptService.getTranscriptById(studentId, transcriptId),
+     //   student);
    
-    return mapper.toRest(service.getLatestVersion(),transcript,student) ;
-  }
+    //return mapper.toRest(service.getLatestVersion(),transcript,student) ;
+  //}
   
   
 }

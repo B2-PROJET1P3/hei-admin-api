@@ -30,7 +30,7 @@ public class VersionService {
     return repository.getVersionByCreatedBy_IdAndTranscript_IdAndId(studentId, transcriptId, versionId);
   }
   
-  public Version getLatestVersion(){
-      return repository.findAll( Sort.by(DESC, "creationDatetime")).get(0);
-  }
+ // public Version getLatestVersion(){
+   //   return repository.findAll( Sort.by(DESC, "creationDatetime")).get(0);
+  //}
 }

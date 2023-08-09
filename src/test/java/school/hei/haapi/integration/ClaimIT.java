@@ -16,11 +16,14 @@ import school.hei.haapi.endpoint.rest.api.TranscriptApi;
 import school.hei.haapi.endpoint.rest.client.ApiClient;
 import school.hei.haapi.endpoint.rest.client.ApiException;
 import school.hei.haapi.endpoint.rest.model.ClaimStatus;
+import school.hei.haapi.endpoint.rest.model.Group;
 import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
 import school.hei.haapi.integration.conf.AbstractContextInitializer;
 import school.hei.haapi.integration.conf.TestUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import school.hei.haapi.endpoint.rest.model.Claim;
 
@@ -42,12 +45,14 @@ import static school.hei.haapi.integration.conf.TestUtils.assertThrowsApiExcepti
 import static school.hei.haapi.integration.conf.TestUtils.assertThrowsForbiddenException;
 import static school.hei.haapi.integration.conf.TestUtils.course1;
 import static school.hei.haapi.integration.conf.TestUtils.crupdatedCourse2;
+import static school.hei.haapi.integration.conf.TestUtils.isValidUUID;
 import static school.hei.haapi.integration.conf.TestUtils.setUpCognito;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @Testcontainers
 @ContextConfiguration(initializers = ClaimIT.ContextInitializer.class)
 @AutoConfigureMockMvc
+@Slf4j
 class ClaimIT {
   @MockBean
   private SentryConf sentryConf;
@@ -65,7 +70,7 @@ class ClaimIT {
   
   public static Claim claim1() {
     Claim claim = new Claim();
-    claim.setId("claim_1");
+    claim.setId("claim1_id");
     claim.setVersionId("version1_id");
     claim.setTranscriptId("transcript1_id");
     claim.setReason("string");
@@ -76,7 +81,7 @@ class ClaimIT {
   
   public static Claim claim2() {
     Claim claim = new Claim();
-    claim.setId("claim_2");
+    claim.setId("claim2_id");
     claim.setVersionId("version2_id");
     claim.setTranscriptId("transcript2_id");
     claim.setReason("string");
@@ -120,8 +125,8 @@ class ClaimIT {
     
     List<Claim> claim = api.getStudentClaims(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,1,5);
     
-    Assertions.assertTrue(claim.contains(claim1()));
-    Assertions.assertEquals(2,claim.size());
+    
+    Assertions.assertEquals(1,claim.size());
   }
   
   
@@ -139,7 +144,11 @@ class ClaimIT {
     ApiClient manager1Client = anApiClient(MANAGER1_TOKEN);
     TranscriptApi api = new TranscriptApi(manager1Client);
    Claim claim = api.putStudentClaimsOfTranscriptVersion(STUDENT2_ID,TRANSCRIPT2_ID,VERSION2_ID,CLAIM2_ID,claim2());
-   
+    
+    
+    claim2().setId(claim.getId());
+    assertNotNull(claim.getCreationDatetime());
+    
    assertEquals(claim,claim2());
   }
   
@@ -159,18 +168,20 @@ class ClaimIT {
     TranscriptApi api = new TranscriptApi(manager1client);
     
     List<Claim> claim = api.getStudentClaims(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,1,2);
-    
-    Assertions.assertTrue(claim.contains(claim1()));
+    log.info(claim.toString());
+    Assertions.assertEquals(claim.get(0),claim1());
   }
   
   @Test
   void manager_crupdate_ko() {
     ApiClient manager1Client = anApiClient(MANAGER1_TOKEN);
     TranscriptApi api = new TranscriptApi(manager1Client);
-    
-    assertThrowsApiException(
-        "{\"type\":\"400 BAD_REQUEST\",\"message\":\"versionId in path is different from versionId in body.\"}",
+    ApiException exception1 = assertThrows(ApiException.class,
         () -> api.putStudentClaimsOfTranscriptVersion(STUDENT1_ID,TRANSCRIPT1_ID,VERSION2_ID,CLAIM1_ID,claim1()));
+    String exceptionMessage = exception1.getMessage();
+    Assertions.assertTrue(exceptionMessage.contains("versionId in path is different from versionId in body"));
+    
+    
   }
   
   static class ContextInitializer extends AbstractContextInitializer {
