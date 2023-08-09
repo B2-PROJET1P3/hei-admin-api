@@ -1,5 +1,8 @@
 package school.hei.haapi.endpoint.rest.controller;
 
+import static java.util.stream.Collectors.toUnmodifiableList;
+import static school.hei.haapi.model.User.Role.STUDENT;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +16,6 @@ import school.hei.haapi.endpoint.rest.model.Student;
 import school.hei.haapi.model.BoundedPageSize;
 import school.hei.haapi.model.PageFromOne;
 import school.hei.haapi.service.UserService;
-
-import static java.util.stream.Collectors.toUnmodifiableList;
-import static school.hei.haapi.model.User.Role.STUDENT;
 
 @RestController
 @AllArgsConstructor

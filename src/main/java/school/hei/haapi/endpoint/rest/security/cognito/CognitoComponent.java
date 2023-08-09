@@ -1,5 +1,7 @@
 package school.hei.haapi.endpoint.rest.security.cognito;
 
+import static school.hei.haapi.model.exception.ApiException.ExceptionType.SERVER_EXCEPTION;
+
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.proc.BadJOSEException;
 import com.nimbusds.jwt.JWTClaimsSet;
@@ -9,8 +11,6 @@ import school.hei.haapi.model.exception.ApiException;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreateUserRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminCreateUserResponse;
-
-import static school.hei.haapi.model.exception.ApiException.ExceptionType.SERVER_EXCEPTION;
 
 @Component
 public class CognitoComponent {
@@ -60,6 +60,6 @@ public class CognitoComponent {
         || createResponse.user().username().isBlank()) {
       throw new ApiException(SERVER_EXCEPTION, "Cognito response: " + createResponse);
     }
-    return  createResponse.user().username();
+    return createResponse.user().username();
   }
 }

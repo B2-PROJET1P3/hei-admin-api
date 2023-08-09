@@ -10,9 +10,9 @@ $$;
 create table if not exists "fee"
 (
     id                varchar
-        constraint fee_pk primary key default uuid_generate_v4(),
+        constraint fee_pk primary key                   default uuid_generate_v4(),
     user_id           varchar                  not null
-        constraint fee_user_id_fk references "user"(id),
+        constraint fee_user_id_fk references "user" (id),
     type              fee_type                 not null,
     total_amount      integer                  not null,
     comment           varchar                  not null,

@@ -10,10 +10,10 @@ $$;
 create table if not exists "payment"
 (
     id                varchar
-        constraint payment_pk primary key default uuid_generate_v4(),
-    fee_id           varchar                  not null
-        constraint payment_fee_id_fk references "fee"(id),
-    type              payment_type                 not null,
+        constraint payment_pk primary key               default uuid_generate_v4(),
+    fee_id            varchar                  not null
+        constraint payment_fee_id_fk references "fee" (id),
+    type              payment_type             not null,
     amount            integer                  not null,
     comment           varchar                  not null,
     creation_datetime timestamp with time zone not null default now()

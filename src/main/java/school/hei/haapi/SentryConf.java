@@ -10,10 +10,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SentryConf {
 
+  private static final double TRACES_SAMPLE_RATE = 1.0;
   private final String sentryDsn;
   private final String env;
-
-  private static final double TRACES_SAMPLE_RATE = 1.0;
 
   public SentryConf(@Value("${sentry.dsn}") String sentryDsn, @Value("${env}") String env) {
     this.sentryDsn = sentryDsn;
