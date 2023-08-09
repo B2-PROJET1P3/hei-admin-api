@@ -17,6 +17,7 @@ import school.hei.haapi.endpoint.rest.model.EnableStatus;
 import school.hei.haapi.endpoint.rest.model.Fee;
 import school.hei.haapi.endpoint.rest.model.Teacher;
 import school.hei.haapi.endpoint.rest.model.UpdateStudentCourse;
+import school.hei.haapi.endpoint.rest.model.Version;
 import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsRequest;
@@ -256,6 +257,25 @@ public class TestUtils {
         .mainTeacher(teacher4())
         .name("Collaborative work");
   }
+
+  public static Version version1() {
+    return new Version()
+        .id(VERSION1_ID)
+        .transcriptId(transcript1())
+        .ref()
+        .createdByUserId()
+        .creationDatetime(Instant.parse("2021-11-08T08:25:24.00Z"));
+  }
+
+  public static Version version2() {
+    return new Version()
+        .id(VERSION2_ID)
+        .transcriptId(transcript2())
+        .ref()
+        .createdByUserId()
+        .creationDatetime(Instant.parse("2022-11-08T08:25:24.00Z"));
+  }
+
 
   public static Fee fee1() {
     return new Fee()
