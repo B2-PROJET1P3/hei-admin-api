@@ -12,7 +12,7 @@ public class VersionMapper {
     return new Version()
         .id(domain.getId())
         .transcriptId(transcript.getId())
-        .ref(BigDecimal.valueOf(domain.getRef()))
+        .ref(domain.getRef())
         .createdByUserId(user.getId())
         .creationDatetime(domain.getCreationDatetime());
   }
@@ -20,7 +20,7 @@ public class VersionMapper {
     return school.hei.haapi.model.Version.builder()
         .id(rest.getId())
         .transcript(transcript)
-        .ref(rest.getRef().intValue())
+        .ref(rest.getRef())
         .createdBy(user)
         .creationDatetime(rest.getCreationDatetime())
         .build();
