@@ -58,7 +58,7 @@ public class S3Service {
     ResponseBytes<GetObjectResponse> responseBytes = s3Client.getObjectAsBytes(getObjectRequest);
     byte[] fileBytes = responseBytes.asByteArray();
     
-    return new ByteToFile(fileBytes);
+    return new ByteToFile(fileBytes,"application/pdf");
   }
   
   

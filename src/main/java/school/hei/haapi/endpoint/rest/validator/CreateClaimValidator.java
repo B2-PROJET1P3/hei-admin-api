@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import org.springframework.stereotype.Component;
 import school.hei.haapi.endpoint.rest.model.Claim;
+import school.hei.haapi.endpoint.rest.model.ClaimStatus;
 import school.hei.haapi.model.exception.BadRequestException;
 
 @Component

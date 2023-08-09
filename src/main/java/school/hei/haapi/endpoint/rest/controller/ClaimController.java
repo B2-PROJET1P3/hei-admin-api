@@ -30,6 +30,9 @@ public class ClaimController {
   private final ClaimService claimService;
   private final ClaimMapper claimMapper;
   private final CreateClaimValidator createClaimValidator;
+  private final ClaimValidator claimValidator;
+  private final TranscriptService transcriptService;
+  private final VersionService versionService;
  
   
   @GetMapping("/students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/claims")
@@ -57,6 +60,9 @@ public class ClaimController {
                             @PathVariable(value = "claims_id") String claimId,
                             @RequestBody Claim claim
   ){
+   // Version version = versionService.getVersionById(studentId,transcriptId,versionId);
+    //Transcript transcript = transcriptService.getTranscriptById(studentId,transcriptId);
+    //claimValidator.accept(claimMapper.toDomain(claim,version,transcript) );
     createClaimValidator.accept(claim);
     createClaimValidator.accept(claim,transcriptId,versionId);
     

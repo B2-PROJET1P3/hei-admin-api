@@ -12,9 +12,11 @@ public class ByteToFile implements MultipartFile {
   
   // from baeldung docs : https://www.baeldung.com/java-convert-byte-array-to-multipartfile
   private byte[] input;
+  private String contentType;
   
-  public ByteToFile(byte[] input) {
+  public ByteToFile(byte[] input,String contentType) {
     this.input=input;
+    this.contentType=contentType;
   }
   
   
@@ -30,7 +32,7 @@ public class ByteToFile implements MultipartFile {
   
   @Override
   public String getContentType() {
-    return null;
+    return contentType;
   }
   @Override
   public boolean isEmpty() {
