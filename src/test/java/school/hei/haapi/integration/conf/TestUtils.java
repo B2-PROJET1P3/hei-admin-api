@@ -1,6 +1,7 @@
 package school.hei.haapi.integration.conf;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.ServerSocket;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -60,6 +61,9 @@ public class TestUtils {
 
   public static final String VERSION1_ID = "version1_id";
   public static final String VERSION2_ID = "version2_id";
+
+  public static  final String transcript1_id = "transcript1";
+  public static  final String transcript2_id = "transcript2";
 
   public static final String BAD_TOKEN = "bad_token";
   public static final String STUDENT1_TOKEN = "student1_token";
@@ -264,18 +268,18 @@ public class TestUtils {
   public static Version version1() {
     return new Version()
         .id(VERSION1_ID)
-        .transcriptId(transcript1())
-        .ref()
-        .createdByUserId()
+        .transcriptId(transcript1_id)
+        .ref(BigDecimal.valueOf(8888))
+        .createdByUserId(STUDENT1_ID)
         .creationDatetime(Instant.parse("2021-11-08T08:25:24.00Z"));
   }
 
   public static Version version2() {
     return new Version()
         .id(VERSION2_ID)
-        .transcriptId(transcript2())
-        .ref()
-        .createdByUserId()
+        .transcriptId(transcript2_id)
+        .ref(BigDecimal.valueOf(9999))
+        .createdByUserId(STUDENT2_ID)
         .creationDatetime(Instant.parse("2022-11-08T08:25:24.00Z"));
   }
 
