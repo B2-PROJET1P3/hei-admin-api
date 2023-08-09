@@ -31,6 +31,7 @@ import school.hei.haapi.endpoint.rest.model.Student;
 import school.hei.haapi.endpoint.rest.model.Teacher;
 import school.hei.haapi.endpoint.rest.model.Transcript;
 import school.hei.haapi.endpoint.rest.model.UpdateStudentCourse;
+import school.hei.haapi.endpoint.rest.model.Version;
 import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsRequest;
@@ -70,6 +71,9 @@ public class TestUtils {
   public static final String TRANSCRIPT3_ID = "transcript3_id";
   public static final String TRANSCRIPT4_ID = "transcript4_id";
   public static final String NEW_TRANSCRIPT_ID = "new_transcript_id";
+  public static final String VERSION1_ID = "version1_id";
+  public static final String VERSION2_ID = "version2_id";
+  public static final String VERSION3_ID = "version3_id";
 
   public static ApiClient anApiClient(String token, int serverPort) {
     ApiClient client = new ApiClient();
@@ -105,6 +109,33 @@ public class TestUtils {
     assertEquals("{"
         + "\"type\":\"403 FORBIDDEN\","
         + "\"message\":\"Access is denied\"}", responseBody);
+  }
+  
+  public static Version version1() {
+    return new Version()
+        .id(VERSION1_ID)
+        .ref(1)
+        .creationDatetime(Instant.parse("2023-02-08T09:30:24Z"))
+        .transcriptId(TRANSCRIPT1_ID)
+        .createdByUserId(TEACHER1_ID);
+  }
+  
+  public static Version version2() {
+    return new Version()
+        .id(VERSION2_ID)
+        .ref(2)
+        .creationDatetime(Instant.parse("2023-02-08T10:30:24Z"))
+        .transcriptId(TRANSCRIPT1_ID)
+        .createdByUserId(MANAGER_ID);
+  }
+  
+  public static Version version3() {
+    return new Version()
+        .id(VERSION3_ID)
+        .ref(1)
+        .creationDatetime(Instant.parse("2023-02-08T09:35:24Z"))
+        .transcriptId(TRANSCRIPT2_ID)
+        .createdByUserId(TEACHER2_ID);
   }
 
   public static Teacher teacher1() {
