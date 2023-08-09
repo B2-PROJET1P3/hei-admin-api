@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static school.hei.haapi.integration.conf.TestUtils.MANAGER1_TOKEN;
 import static school.hei.haapi.integration.conf.TestUtils.STUDENT1_ID;
+import static school.hei.haapi.integration.conf.TestUtils.STUDENT1_TOKEN;
+import static school.hei.haapi.integration.conf.TestUtils.TEACHER1_TOKEN;
 import static school.hei.haapi.integration.conf.TestUtils.TRANSCRIPT1_ID;
 import static school.hei.haapi.integration.conf.TestUtils.anAvailableRandomPort;
 import static school.hei.haapi.integration.conf.TestUtils.setUpCognito;
@@ -48,7 +50,7 @@ public class TranscriptIT {
   }
 
   @Test
-  void user_read_ok() throws ApiException {
+  void manager_read_ok() throws ApiException {
     ApiClient manager1Client = anApiClient(MANAGER1_TOKEN);
     TranscriptApi api = new TranscriptApi(manager1Client);
 
@@ -56,6 +58,36 @@ public class TranscriptIT {
     Transcript actual = api.getStudentTranscriptById(STUDENT1_ID, TRANSCRIPT1_ID);
     assertEquals(expected,actual );
    }
+  @Test
+  void manager_read_all_ok() throws ApiException {
+    ApiClient manager1Client = anApiClient(MANAGER1_TOKEN);
+    TranscriptApi api = new TranscriptApi(manager1Client);
+
+    Transcript expected = transcript1();
+    List<Transcript> actual = api.getStudentTranscripts(STUDENT1_ID, 1,5);
+    assertEquals(expected,actual.get(0) );
+  }
+
+  @Test
+  void teacher_read_ok() throws ApiException {
+    ApiClient teacher1Client = anApiClient(TEACHER1_TOKEN);
+    TranscriptApi api = new TranscriptApi(teacher1Client);
+
+    Transcript expected = transcript1();
+    Transcript actual = api.getStudentTranscriptById(STUDENT1_ID, TRANSCRIPT1_ID);
+    assertEquals(expected,actual );
+  }
+
+  @Test
+  void teacher_read_all_ok() throws ApiException {
+    ApiClient teacher1Client = anApiClient(TEACHER1_TOKEN);
+    TranscriptApi api = new TranscriptApi(teacher1Client);
+
+    Transcript expected = transcript1();
+    List<Transcript> actual = api.getStudentTranscripts(STUDENT1_ID, 1,5);
+    assertEquals(expected,actual.get(0) );
+  }
+
 
   static class ContextInitializer extends AbstractContextInitializer {
     public static final int SERVER_PORT = anAvailableRandomPort();
