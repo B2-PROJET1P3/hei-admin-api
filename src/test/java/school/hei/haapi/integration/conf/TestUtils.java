@@ -269,7 +269,7 @@ public class TestUtils {
     return new Version()
         .id(VERSION1_ID)
         .transcriptId(transcript1_id)
-        .ref(BigDecimal.valueOf(8888))
+        .ref(1)
         .createdByUserId(STUDENT1_ID)
         .creationDatetime(Instant.parse("2021-11-08T08:25:24.00Z"));
   }
@@ -278,7 +278,7 @@ public class TestUtils {
     return new Version()
         .id(VERSION2_ID)
         .transcriptId(transcript2_id)
-        .ref(BigDecimal.valueOf(9999))
+        .ref(2)
         .createdByUserId(STUDENT2_ID)
         .creationDatetime(Instant.parse("2022-11-08T08:25:24.00Z"));
   }
