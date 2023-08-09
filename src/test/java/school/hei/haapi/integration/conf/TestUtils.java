@@ -58,6 +58,9 @@ public class TestUtils {
   public static final String COURSE4_ID = "course4_id";
   public static final String COURSE5_ID = "course5_id";
 
+  public static final String VERSION1_ID = "version1_id";
+  public static final String VERSION2_ID = "version2_id";
+
   public static final String BAD_TOKEN = "bad_token";
   public static final String STUDENT1_TOKEN = "student1_token";
   public static final String TEACHER1_TOKEN = "teacher1_token";
