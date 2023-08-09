@@ -67,6 +67,9 @@ public class TestUtils {
 
   public static final String TRANSCRIPT1_ID = "transcript1_id";
   public static final String TRANSCRIPT2_ID = "transcript2_id";
+  public static final String TRANSCRIPT3_ID = "transcript3_id";
+  public static final String TRANSCRIPT4_ID = "transcript4_id";
+  public static final String NEW_TRANSCRIPT_ID = "new_transcript_id";
 
   public static ApiClient anApiClient(String token, int serverPort) {
     ApiClient client = new ApiClient();
@@ -322,6 +325,26 @@ public class TestUtils {
         .student(student2())
         .isDefinitive(true)
         .semester(Semester.S2);
+  }
+
+  static Transcript transcript3() {
+    return new Transcript()
+        .id(TRANSCRIPT2_ID)
+        .student(student2())
+        .semester(Semester.S6)
+        .academicYear(2023)
+        .isDefinitive(true)
+        .creationDatetime(Instant.parse("2023-11-10T08:25:25.00Z"));
+  }
+
+  static Transcript transcript4() {
+    return new Transcript()
+        .id(TRANSCRIPT4_ID)
+        .student(student2())
+        .semester(Semester.S5)
+        .academicYear(2024)
+        .isDefinitive(true)
+        .creationDatetime(Instant.parse("2024-11-12T08:25:26.00Z"));
   }
 
   public static Student student1() {
