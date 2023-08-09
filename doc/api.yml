@@ -1911,7 +1911,7 @@ components:
         transcript_id:
           type: string
         ref:
-          type: number
+          type: integer
         created_by_user_id:
           type: string
         created_by_user_role:

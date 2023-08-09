@@ -8,6 +8,6 @@ import school.hei.haapi.model.Version;
 
 @Repository
 public interface VersionRepository extends JpaRepository<Version,String> {
-  List<Version> findAllByCreatedBy_IdAndTranscript_Id(String createdById, String transcriptId, Pageable pageable);
-  Version getVersionByCreatedBy_IdAndTranscript_IdAndId(String createdById, String transcriptId, String id);
+  List<Version> findAllByTranscript_Id( String transcriptId, Pageable pageable);
+  Version getVersionByTranscript_IdAndId(String transcriptId, String id);
 }

@@ -38,7 +38,7 @@ public class VersionController {
     Student student = userMapper.toRestStudent(userService.getById(studentId));
     Transcript transcript = transcriptMapper.toRest(transcriptService.getTranscriptById(studentId, transcriptId),
         student);
-    return service.getVersions(studentId, transcriptId, page, pageSize).stream()
+    return service.getVersions(transcriptId, page, pageSize).stream()
         .map(version -> mapper.toRest(version, transcript, student)).collect(Collectors.toUnmodifiableList());
   }
   @GetMapping("/students/{student_id}/transcripts/{transcript_id}/versions/{version_id}")
@@ -48,6 +48,6 @@ public class VersionController {
     Student student = userMapper.toRestStudent(userService.getById(studentId));
     Transcript transcript = transcriptMapper.toRest(transcriptService.getTranscriptById(studentId, transcriptId),
         student);
-    return mapper.toRest(service.getVersionById(studentId,transcriptId,versionId),transcript,student);
+    return mapper.toRest(service.getVersionById(transcriptId,versionId),transcript,student);
   }
 }

@@ -13,7 +13,7 @@ public class VersionMapper {
         .id(domain.getId())
         .transcriptId(transcript.getId())
         .ref(BigDecimal.valueOf(domain.getRef()))
-        .createdByUserId(String.valueOf(user))
+        .createdByUserId(user.getId())
         .creationDatetime(domain.getCreationDatetime());
   }
   public school.hei.haapi.model.Version toDomain(Version rest, school.hei.haapi.model.User user, school.hei.haapi.model.Transcript transcript){
