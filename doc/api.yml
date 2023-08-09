@@ -1868,8 +1868,6 @@ components:
       properties:
         id:
           type: string
-        semester:
-          $ref: '#/components/schemas/Semester'
         academic_year:
           type: integer
         is_definitive:
@@ -1877,6 +1875,7 @@ components:
         creation_datetime:
           type: string
           format: date-time
+
     CrupdateTranscript:
       allOf:
         - $ref: '#/components/schemas/TranscriptTemplate'
@@ -1884,13 +1883,17 @@ components:
       properties:
         student_id:
           type: string
+
     Transcript:
       allOf:
         - $ref: '#/components/schemas/TranscriptTemplate'
-      type: object
-      properties:
-        student:
-          $ref: '#/components/schemas/Student'
+        - type: object
+          properties:
+            semester:
+              $ref: '#/components/schemas/Semester'
+
+            student:
+              $ref: '#/components/schemas/Student'
     Semester:
       type: string
       enum:
@@ -1908,7 +1911,7 @@ components:
         transcript_id:
           type: string
         ref:
-          type: number
+          type: integer
         created_by_user_id:
           type: string
         created_by_user_role:

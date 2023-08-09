@@ -1,5 +1,10 @@
 package school.hei.haapi.endpoint.rest;
 
+import static java.lang.System.currentTimeMillis;
+import static java.lang.Thread.currentThread;
+import static java.util.UUID.randomUUID;
+import static java.util.stream.Collectors.joining;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -7,19 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import school.hei.haapi.endpoint.rest.security.AuthProvider;
 import school.hei.haapi.endpoint.rest.security.model.Principal;
-
-import static java.lang.System.currentTimeMillis;
-import static java.lang.Thread.currentThread;
-import static java.util.UUID.randomUUID;
-import static java.util.stream.Collectors.joining;
 
 @Configuration
 public class RequestLoggerConfigurer implements WebMvcConfigurer {

@@ -1,6 +1,18 @@
 package school.hei.haapi.integration.conf;
 
+import static java.util.UUID.randomUUID;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static school.hei.haapi.endpoint.rest.model.CourseStatus.LINKED;
+import static school.hei.haapi.endpoint.rest.model.Fee.StatusEnum.LATE;
+import static school.hei.haapi.endpoint.rest.model.Fee.StatusEnum.PAID;
+import static school.hei.haapi.endpoint.rest.model.Fee.TypeEnum.HARDWARE;
+import static school.hei.haapi.endpoint.rest.model.Fee.TypeEnum.TUITION;
+
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.ServerSocket;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -15,23 +27,16 @@ import school.hei.haapi.endpoint.rest.model.CreateFee;
 import school.hei.haapi.endpoint.rest.model.CrupdateCourse;
 import school.hei.haapi.endpoint.rest.model.EnableStatus;
 import school.hei.haapi.endpoint.rest.model.Fee;
+import school.hei.haapi.endpoint.rest.model.Semester;
+import school.hei.haapi.endpoint.rest.model.Student;
 import school.hei.haapi.endpoint.rest.model.Teacher;
+import school.hei.haapi.endpoint.rest.model.Transcript;
 import school.hei.haapi.endpoint.rest.model.UpdateStudentCourse;
+import school.hei.haapi.endpoint.rest.model.Version;
 import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsRequest;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsResponse;
-
-import static java.util.UUID.randomUUID;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static school.hei.haapi.endpoint.rest.model.CourseStatus.LINKED;
-import static school.hei.haapi.endpoint.rest.model.Fee.StatusEnum.LATE;
-import static school.hei.haapi.endpoint.rest.model.Fee.StatusEnum.PAID;
-import static school.hei.haapi.endpoint.rest.model.Fee.TypeEnum.HARDWARE;
-import static school.hei.haapi.endpoint.rest.model.Fee.TypeEnum.TUITION;
 
 public class TestUtils {
 
@@ -57,10 +62,22 @@ public class TestUtils {
   public static final String COURSE4_ID = "course4_id";
   public static final String COURSE5_ID = "course5_id";
 
+  public static final String VERSION1_ID = "version1_id";
+  public static final String VERSION2_ID = "version2_id";
+
+  public static  final String transcript1_id = "transcript1";
+  public static  final String transcript2_id = "transcript2";
+
   public static final String BAD_TOKEN = "bad_token";
   public static final String STUDENT1_TOKEN = "student1_token";
   public static final String TEACHER1_TOKEN = "teacher1_token";
   public static final String MANAGER1_TOKEN = "manager1_token";
+
+  public static final String TRANSCRIPT1_ID = "transcript1_id";
+  public static final String TRANSCRIPT2_ID = "transcript2_id";
+  public static final String TRANSCRIPT3_ID = "transcript3_id";
+  public static final String TRANSCRIPT4_ID = "transcript4_id";
+  public static final String NEW_TRANSCRIPT_ID = "new_transcript_id";
 
   public static ApiClient anApiClient(String token, int serverPort) {
     ApiClient client = new ApiClient();
@@ -257,6 +274,25 @@ public class TestUtils {
         .name("Collaborative work");
   }
 
+  public static Version version1() {
+    return new Version()
+        .id(VERSION1_ID)
+        .transcriptId(transcript1_id)
+        .ref(1)
+        .createdByUserId(STUDENT1_ID)
+        .creationDatetime(Instant.parse("2021-11-08T08:25:24.00Z"));
+  }
+
+  public static Version version2() {
+    return new Version()
+        .id(VERSION2_ID)
+        .transcriptId(transcript2_id)
+        .ref(2)
+        .createdByUserId(STUDENT2_ID)
+        .creationDatetime(Instant.parse("2022-11-08T08:25:24.00Z"));
+  }
+
+
   public static Fee fee1() {
     return new Fee()
         .id(FEE1_ID)
@@ -298,6 +334,79 @@ public class TestUtils {
         .creationDatetime(Instant.parse("2022-12-08T08:25:24.00Z"))
         .dueDatetime(Instant.parse("2021-12-09T08:25:24.00Z"));
   }
+
+  public static Transcript transcript1() {
+    return new Transcript()
+        .id(TRANSCRIPT1_ID)
+        .academicYear(2023)
+        .creationDatetime(Instant.parse("2023-02-08T08:30:24Z"))
+        .student(student1())
+        .isDefinitive(true)
+        .semester(Semester.S1);
+  }
+
+  public static Transcript transcript2() {
+    return new Transcript()
+        .id(TRANSCRIPT2_ID)
+        .academicYear(2024)
+        .creationDatetime(Instant.parse("2023-02-08T08:30:24Z"))
+        .student(student2())
+        .isDefinitive(true)
+        .semester(Semester.S2);
+  }
+
+  static Transcript transcript3() {
+    return new Transcript()
+        .id(TRANSCRIPT2_ID)
+        .student(student2())
+        .semester(Semester.S6)
+        .academicYear(2023)
+        .isDefinitive(true)
+        .creationDatetime(Instant.parse("2023-11-10T08:25:25.00Z"));
+  }
+
+  static Transcript transcript4() {
+    return new Transcript()
+        .id(TRANSCRIPT4_ID)
+        .student(student2())
+        .semester(Semester.S5)
+        .academicYear(2024)
+        .isDefinitive(true)
+        .creationDatetime(Instant.parse("2024-11-12T08:25:26.00Z"));
+  }
+
+  public static Student student1() {
+    Student student = new Student();
+    student.setId("student1_id");
+    student.setFirstName("Ryan");
+    student.setLastName("Andria");
+    student.setEmail("test+ryan@hei.school");
+    student.setRef("STD21001");
+    student.setPhone("0322411123");
+    student.setStatus(EnableStatus.ENABLED);
+    student.setSex(Student.SexEnum.M);
+    student.setBirthDate(LocalDate.parse("2000-01-01"));
+    student.setEntranceDatetime(Instant.parse("2021-11-08T08:25:24.00Z"));
+    student.setAddress("Adr 1");
+    return student;
+  }
+
+  public static Student student2() {
+    Student student = new Student();
+    student.setId("student2_id");
+    student.setFirstName("Two");
+    student.setLastName("Student");
+    student.setEmail("test+student2@hei.school");
+    student.setRef("STD21002");
+    student.setPhone("0322411124");
+    student.setStatus(EnableStatus.ENABLED);
+    student.setSex(Student.SexEnum.F);
+    student.setBirthDate(LocalDate.parse("2000-01-02"));
+    student.setEntranceDatetime(Instant.parse("2021-11-09T08:26:24.00Z"));
+    student.setAddress("Adr 2");
+    return student;
+  }
+
 
   public static CreateFee creatableFee1() {
     return new CreateFee()

@@ -1,5 +1,7 @@
 package school.hei.haapi.endpoint.rest.controller;
 
+import static java.util.stream.Collectors.toUnmodifiableList;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import school.hei.haapi.endpoint.rest.mapper.GroupMapper;
 import school.hei.haapi.endpoint.rest.model.Group;
 import school.hei.haapi.service.GroupService;
-
-import static java.util.stream.Collectors.toUnmodifiableList;
 
 @RestController
 @AllArgsConstructor

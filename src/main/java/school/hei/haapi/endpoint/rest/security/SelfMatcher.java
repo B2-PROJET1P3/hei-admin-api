@@ -12,12 +12,11 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 @AllArgsConstructor
 public class SelfMatcher implements RequestMatcher {
 
-  private final HttpMethod method;
-  private final String antPattern;
-
   private static final Pattern SELFABLE_URI_PATTERN =
       // /resourceType/id/...
       Pattern.compile("/[^/]+/(?<id>[^/]+)(/.*)?");
+  private final HttpMethod method;
+  private final String antPattern;
 
   @Override
   public boolean matches(HttpServletRequest request) {
