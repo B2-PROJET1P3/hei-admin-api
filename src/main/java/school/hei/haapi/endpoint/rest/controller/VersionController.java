@@ -22,6 +22,7 @@ import school.hei.haapi.model.PageFromOne;
 import school.hei.haapi.service.TranscriptService;
 import school.hei.haapi.service.UserService;
 import school.hei.haapi.service.VersionService;
+import school.hei.haapi.service.aws.S3Service;
 
 @RestController
 @AllArgsConstructor
@@ -32,6 +33,7 @@ public class VersionController {
   private final UserMapper userMapper;
   private final TranscriptMapper transcriptMapper;
   private final TranscriptService transcriptService;
+  private final S3Service s3Service;
   
   @GetMapping("/students/{student_id}/transcripts/{transcript_id}/versions")
   public List<Version> getVersions(@PathVariable(value = "student_id") String studentId,
@@ -54,28 +56,24 @@ public class VersionController {
     return mapper.toRest(service.getVersionById(studentId,transcriptId,versionId),transcript,student);
   }
   
- // @GetMapping("/students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/raw:")
-  //public MultipartFile getStudentTranscriptVersionPdf(@PathVariable(value = "student_id") String studentId,
-  //                                                    @PathVariable(value = "transcript_id") String transcriptId,
-    //                                                  @PathVariable(value = "version_id") String versionId){
-    //Return s3Service.get(versionId+".pdf")
-    // BytetoFile file = newBytefile(s3Service) return CustomMutlipartfile
+ @GetMapping("/students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/raw:")
+  public MultipartFile getStudentTranscriptVersionPdf(@PathVariable(value = "student_id") String studentId,
+                                                     @PathVariable(value = "transcript_id") String transcriptId,
+                                                      @PathVariable(value = "version_id") String versionId){
+   
+  return s3Service.getObject(versionId);
+  }
+  
+ @PostMapping("/students/{student_id}/transcripts/{transcript_id}/versions/latest/raw:")
+  public Version putStudentTranscriptVersionPdf(@PathVariable(value = "student_id") String studentId,
+                                               @PathVariable(value = "transcript_id") String transcriptId,
+                                                @RequestBody MultipartFile pdf){
+   s3Service.uploadFile(pdf,service.getLatestVersionId());
+   Student student = userMapper.toRestStudent(userService.getById(studentId));
+   Transcript transcript = transcriptMapper.toRest(transcriptService.getTranscriptById(studentId, transcriptId),
+      student);
+   
+    return mapper.toRest(service.getLatestVersion(),transcript,student) ;
     
-  //}
-  
-
- // @PostMapping("/students/{student_id}/transcripts/{transcript_id}/versions/latest/raw:")
-  //public Version putStudentTranscriptVersionPdf(@PathVariable(value = "student_id") String studentId,
-    //                                            @PathVariable(value = "transcript_id") String transcriptId,
-      //                                          @RequestBody MultipartFile pdf){
-   
-   // s3Service to post pdf,,pdf)
-   // Student student = userMapper.toRestStudent(userService.getById(studentId));
-   // Transcript transcript = transcriptMapper.toRest(transcriptService.getTranscriptById(studentId, transcriptId),
-     //   student);
-   
-    //return mapper.toRest(service.getLatestVersion(),transcript,student) ;
-  //}
-  
-  
+  }
 }
