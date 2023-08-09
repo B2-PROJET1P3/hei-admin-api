@@ -57,9 +57,9 @@ public class ClaimController {
                             @PathVariable(value = "claims_id") String claimId,
                             @RequestBody Claim claim
   ){
-   
-    createClaimValidator.accept(claim,transcriptId,versionId);
     createClaimValidator.accept(claim);
+    createClaimValidator.accept(claim,transcriptId,versionId);
+    
     
     return claimMapper.toRest(claimService.crupdateClaim(claim,studentId,versionId,transcriptId,claimId));
   }

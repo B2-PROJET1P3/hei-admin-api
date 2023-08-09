@@ -79,7 +79,41 @@ class ClaimIT {
     return claim;
   }
   
+  public static Claim claim1WithSomeBadFieds() {
+    Claim claim = new Claim();
+    claim.setId("claim1_id");
+    claim.setVersionId("version1_id");
+    claim.setReason("string");
+    claim.transcriptId("transcript2_id");
+    claim.setStatus(ClaimStatus.valueOf("OPEN"));
+    claim.setCreationDatetime(Instant.parse("2023-08-08T16:23:09.191Z"));
+    return claim;
+  }
+  
   public static Claim claim2() {
+    Claim claim = new Claim();
+    claim.setId("claim2_id");
+    claim.setVersionId("version2_id");
+    claim.setTranscriptId("transcript2_id");
+    claim.setReason("string");
+    claim.setStatus(ClaimStatus.valueOf("CLOSE"));
+    claim.setClosedDatetime(Instant.parse("2023-10-08T16:23:09.191Z"));
+    claim.setCreationDatetime(Instant.parse("2023-08-08T16:23:09.191Z"));
+    return claim;
+  }
+  
+  public static Claim toCreate2() {
+    Claim claim = new Claim();
+    claim.setId("claim1_id");
+    claim.setVersionId("version1_id");
+    claim.setTranscriptId("transcript1_id");
+    claim.setReason("string");
+    claim.setStatus(ClaimStatus.valueOf("OPEN"));
+    claim.setCreationDatetime(Instant.parse("2023-08-08T16:23:09.191Z"));
+    return claim;
+  }
+  
+  public static Claim toUpdate2() {
     Claim claim = new Claim();
     claim.setId("claim2_id");
     claim.setVersionId("version2_id");
@@ -143,12 +177,9 @@ class ClaimIT {
   void manager_update_student_claim() throws ApiException {
     ApiClient manager1Client = anApiClient(MANAGER1_TOKEN);
     TranscriptApi api = new TranscriptApi(manager1Client);
-   Claim claim = api.putStudentClaimsOfTranscriptVersion(STUDENT2_ID,TRANSCRIPT2_ID,VERSION2_ID,CLAIM2_ID,claim2());
-    
-    
-    claim2().setId(claim.getId());
-    assertNotNull(claim.getCreationDatetime());
-    
+   Claim claim = api.putStudentClaimsOfTranscriptVersion(STUDENT2_ID,TRANSCRIPT2_ID,VERSION2_ID,CLAIM2_ID,toUpdate2());
+   
+    toUpdate2().setId(claim.getId());
    assertEquals(claim,claim2());
   }
   
@@ -157,7 +188,7 @@ class ClaimIT {
     ApiClient manager1Client = anApiClient(MANAGER1_TOKEN);
     TranscriptApi api = new TranscriptApi(manager1Client);
     
-    Claim claim = api.putStudentClaimsOfTranscriptVersion(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,CLAIM1_ID,claim1());
+    Claim claim = api.putStudentClaimsOfTranscriptVersion(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,CLAIM1_ID,toCreate2());
   
     assertEquals(claim,claim1());
   }
@@ -168,7 +199,7 @@ class ClaimIT {
     TranscriptApi api = new TranscriptApi(manager1client);
     
     List<Claim> claim = api.getStudentClaims(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,1,2);
-    log.info(claim.toString());
+    
     Assertions.assertEquals(claim.get(0),claim1());
   }
   
@@ -179,9 +210,22 @@ class ClaimIT {
     ApiException exception1 = assertThrows(ApiException.class,
         () -> api.putStudentClaimsOfTranscriptVersion(STUDENT1_ID,TRANSCRIPT1_ID,VERSION2_ID,CLAIM1_ID,claim1()));
     String exceptionMessage = exception1.getMessage();
-    Assertions.assertTrue(exceptionMessage.contains("versionId in path is different from versionId in body"));
+    Assertions.assertTrue(exceptionMessage.contains("versionId in path is different than versionId in body"));
+  }
+  
+  @Test
+  void manager_create_with_some_bad_fields_ko() {
+    ApiClient manager1Client = anApiClient(MANAGER1_TOKEN);
+    TranscriptApi api = new TranscriptApi(manager1Client);
+    ApiException exception1 = assertThrows(ApiException.class,
+        () -> api.putStudentClaimsOfTranscriptVersion(STUDENT1_ID,TRANSCRIPT1_ID,VERSION2_ID,CLAIM1_ID,claim1()));
     
-    
+    ApiException exception2 = assertThrows(ApiException.class,
+        () -> api.putStudentClaimsOfTranscriptVersion(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,CLAIM1_ID,claim1WithSomeBadFieds()));
+    String exceptionMessage1 = exception1.getMessage();
+    String exceptionMessage2 = exception2.getMessage();
+    Assertions.assertTrue(exceptionMessage1.contains("versionId in path is different than versionId in body"));
+    Assertions.assertTrue(exceptionMessage2.contains("transcriptId in path is different than transcriptId in body"));
   }
   
   static class ContextInitializer extends AbstractContextInitializer {
