@@ -1868,7 +1868,6 @@ components:
       properties:
         id:
           type: string
-#          $ref: '#/components/schemas/Semester'
         academic_year:
           type: integer
         is_definitive:
