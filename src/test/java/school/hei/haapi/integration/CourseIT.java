@@ -52,7 +52,6 @@ class CourseIT {
   private SentryConf sentryConf;
   @MockBean
   private CognitoComponent cognitoComponentMock;
-
   private static ApiClient anApiClient(String token) {
     return TestUtils.anApiClient(token, CourseIT.ContextInitializer.SERVER_PORT);
   }
