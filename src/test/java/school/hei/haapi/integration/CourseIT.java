@@ -87,7 +87,7 @@ class CourseIT {
   }
 
   @Test
-  void user_read_by_filter() throws ApiException {
+  void    user_read_by_filter() throws ApiException {
     ApiClient manager1Client = anApiClient(MANAGER1_TOKEN);
     TeachingApi api = new TeachingApi(manager1Client);
 

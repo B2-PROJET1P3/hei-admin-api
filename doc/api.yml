@@ -1855,7 +1855,7 @@ components:
         reason:
           type: string
         status:
-            $ref: '#/components/schemas/ClaimStatus'
+          $ref: '#/components/schemas/ClaimStatus'
         closed_datetime:
           type: string
           format: date-time
