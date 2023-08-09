@@ -15,7 +15,10 @@ import school.hei.haapi.endpoint.rest.model.CreateFee;
 import school.hei.haapi.endpoint.rest.model.CrupdateCourse;
 import school.hei.haapi.endpoint.rest.model.EnableStatus;
 import school.hei.haapi.endpoint.rest.model.Fee;
+import school.hei.haapi.endpoint.rest.model.Semester;
+import school.hei.haapi.endpoint.rest.model.Student;
 import school.hei.haapi.endpoint.rest.model.Teacher;
+import school.hei.haapi.endpoint.rest.model.Transcript;
 import school.hei.haapi.endpoint.rest.model.UpdateStudentCourse;
 import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
@@ -70,7 +73,59 @@ public class TestUtils {
   public static final String STUDENT1_TOKEN = "student1_token";
   public static final String TEACHER1_TOKEN = "teacher1_token";
   public static final String MANAGER1_TOKEN = "manager1_token";
-
+  
+  public static Student student1() {
+    Student student = new Student();
+    student.setId("student1_id");
+    student.setFirstName("Ryan");
+    student.setLastName("Andria");
+    student.setEmail("test+ryan@hei.school");
+    student.setRef("STD21001");
+    student.setPhone("0322411123");
+    student.setStatus(EnableStatus.ENABLED);
+    student.setSex(Student.SexEnum.M);
+    student.setBirthDate(LocalDate.parse("2000-01-01"));
+    student.setEntranceDatetime(Instant.parse("2021-11-08T08:25:24.00Z"));
+    student.setAddress("Adr 1");
+    return student;
+  }
+  public static Transcript transcript1(){
+    return new Transcript()
+        .id(TRANSCRIPT1_ID)
+        .academicYear(2023)
+        .creationDatetime(Instant.parse("2023-02-08T08:30:24Z"))
+        .student(student1())
+        .isDefinitive(true)
+        .semester(Semester.S1);
+  }
+  public static Transcript transcript2(){
+    return new Transcript()
+        .id(TRANSCRIPT2_ID)
+        .academicYear(2024)
+        .creationDatetime(Instant.parse("2023-02-08T08:30:24Z"))
+        .student(student2())
+        .isDefinitive(true)
+        .semester(Semester.S2);
+  }
+  
+  
+  public static Student student2() {
+    Student student = new Student();
+    student.setId("student2_id");
+    student.setFirstName("Two");
+    student.setLastName("Student");
+    student.setEmail("test+student2@hei.school");
+    student.setRef("STD21002");
+    student.setPhone("0322411124");
+    student.setStatus(EnableStatus.ENABLED);
+    student.setSex(Student.SexEnum.F);
+    student.setBirthDate(LocalDate.parse("2000-01-02"));
+    student.setEntranceDatetime(Instant.parse("2021-11-09T08:26:24.00Z"));
+    student.setAddress("Adr 2");
+    return student;
+  }
+  
+  
   public static ApiClient anApiClient(String token, int serverPort) {
     ApiClient client = new ApiClient();
     client.setScheme("http");

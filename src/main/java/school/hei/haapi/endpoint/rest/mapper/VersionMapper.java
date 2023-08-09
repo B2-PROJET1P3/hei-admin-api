@@ -20,7 +20,7 @@ public class VersionMapper {
   public school.hei.haapi.model.Version toDomain(Version rest, school.hei.haapi.model.User user, school.hei.haapi.model.Transcript transcript){
     return school.hei.haapi.model.Version.builder()
         .id(rest.getId())
-        .transcriptId(transcript)
+        .transcript(transcript)
         .ref(rest.getRef().intValue())
         .createdBy(user)
         .creationDatetime(rest.getCreationDatetime())

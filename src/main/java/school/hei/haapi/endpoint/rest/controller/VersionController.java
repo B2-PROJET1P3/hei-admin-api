@@ -5,8 +5,11 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import school.hei.haapi.endpoint.rest.mapper.TranscriptMapper;
 import school.hei.haapi.endpoint.rest.mapper.UserMapper;
 import school.hei.haapi.endpoint.rest.mapper.VersionMapper;
@@ -50,4 +53,29 @@ public class VersionController {
         student);
     return mapper.toRest(service.getVersionById(studentId,transcriptId,versionId),transcript,student);
   }
+  
+  @GetMapping("/students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/raw:")
+  public MultipartFile getStudentTranscriptVersionPdf(@PathVariable(value = "student_id") String studentId,
+                                                      @PathVariable(value = "transcript_id") String transcriptId,
+                                                      @PathVariable(value = "version_id") String versionId){
+    //Return s3Service.get(versionId+".pdf")
+    // BytetoFile file = newBytefile(s3Service) return CustomMutlipartfile
+    
+  }
+  
+
+  @PostMapping("/students/{student_id}/transcripts/{transcript_id}/versions/latest/raw:")
+  public Version putStudentTranscriptVersionPdf(@PathVariable(value = "student_id") String studentId,
+                                                @PathVariable(value = "transcript_id") String transcriptId,
+                                                @RequestBody MultipartFile pdf){
+   
+   // s3Service to post pdf,,pdf)
+    Student student = userMapper.toRestStudent(userService.getById(studentId));
+    Transcript transcript = transcriptMapper.toRest(transcriptService.getTranscriptById(studentId, transcriptId),
+        student);
+   
+    return mapper.toRest(service.getLatestVersion(),transcript,student) ;
+  }
+  
+  
 }

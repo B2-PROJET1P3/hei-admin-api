@@ -29,7 +29,7 @@ public class Version {
   private String id;
   @ManyToOne
   @JoinColumn(name = "transcript_id")
-  private Transcript transcriptId;
+  private Transcript transcript;
   private Integer ref;
   @ManyToOne
   @JoinColumn(name = "user_id")

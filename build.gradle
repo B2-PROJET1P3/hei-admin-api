@@ -138,6 +138,7 @@ dependencies {
     implementation 'org.thymeleaf:thymeleaf:3.1.1.RELEASE'
     // A library that format number into words
     implementation 'pl.allegro.finance:tradukisto:1.12.0'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.13.0'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
