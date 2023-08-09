@@ -19,7 +19,7 @@ public class ClaimValidator implements Consumer<Claim> {
       violationMessages.add("Transcript is mandatory");
     }
     if(claim.getVersion()==null){
-      violationMessages.add("TranscriptVersion is mandatory");
+      violationMessages.add("Version is mandatory");
     }
     if (claim.getReason()==null){
       violationMessages.add("Claims reason cannot be null");
