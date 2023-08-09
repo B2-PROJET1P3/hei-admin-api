@@ -1,5 +1,10 @@
 package school.hei.haapi.service;
 
+import static school.hei.haapi.service.utils.DataFormatterUtils.instantToCommonDate;
+import static school.hei.haapi.service.utils.DataFormatterUtils.numberToReadable;
+import static school.hei.haapi.service.utils.DataFormatterUtils.numberToWords;
+import static school.hei.haapi.service.utils.TemplateUtils.htmlToString;
+
 import java.util.function.Consumer;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,11 +13,6 @@ import school.hei.haapi.endpoint.event.EventConf;
 import school.hei.haapi.endpoint.event.model.gen.LateFeeVerified;
 import school.hei.haapi.model.User;
 import school.hei.haapi.service.aws.SesService;
-
-import static school.hei.haapi.service.utils.DataFormatterUtils.instantToCommonDate;
-import static school.hei.haapi.service.utils.DataFormatterUtils.numberToReadable;
-import static school.hei.haapi.service.utils.DataFormatterUtils.numberToWords;
-import static school.hei.haapi.service.utils.TemplateUtils.htmlToString;
 
 @Service
 @AllArgsConstructor

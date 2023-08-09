@@ -1,6 +1,9 @@
 package school.hei.haapi.endpoint.event;
 
 
+import static java.util.stream.Collectors.toUnmodifiableList;
+import static school.hei.haapi.model.exception.ApiException.ExceptionType.SERVER_EXCEPTION;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
@@ -21,34 +24,14 @@ import software.amazon.awssdk.services.eventbridge.model.PutEventsRequestEntry;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsResponse;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsResultEntry;
 
-import static java.util.stream.Collectors.toUnmodifiableList;
-import static school.hei.haapi.model.exception.ApiException.ExceptionType.SERVER_EXCEPTION;
-
 @Component
 @Slf4j
 public class EventProducer implements Consumer<List<TypedEvent>> {
 
-  @Configuration
-  public static class Conf {
-
-    private final Region region;
-    private static final int MAX_PUT_EVENT_ENTRIES = 10;
-
-    public Conf(@Value("${aws.region}") String region) {
-      this.region = Region.of(region);
-    }
-
-    @Bean
-    public EventBridgeClient getEventBridgeClient() {
-      return EventBridgeClient.builder().region(region).build();
-    }
-  }
-
+  private static final String EVENT_SOURCE = "school.hei.haapi";
   private final EventBridgeClient eventBridgeClient;
   private final String eventBusName;
   private final ObjectMapper om;
-  private static final String EVENT_SOURCE = "school.hei.haapi";
-
   public EventProducer(
       EventBridgeClient eventBridgeClient,
       @Value("${aws.eventBridge.bus}") String eventBusName,
@@ -80,8 +63,8 @@ public class EventProducer implements Consumer<List<TypedEvent>> {
 
   private PutEventsRequest toEventsRequest(List<TypedEvent> events) {
     return PutEventsRequest.builder()
-            .entries(events.stream().map(this::toRequestEntry).collect(toUnmodifiableList()))
-            .build();
+        .entries(events.stream().map(this::toRequestEntry).collect(toUnmodifiableList()))
+        .build();
   }
 
   private PutEventsRequestEntry toRequestEntry(TypedEvent typedEvent) {
@@ -125,7 +108,23 @@ public class EventProducer implements Consumer<List<TypedEvent>> {
   private void checkPayload(List<TypedEvent> events) {
     if (!isPayloadValid(events)) {
       throw new BadRequestException(
-              "Request entries must be <= " + Conf.MAX_PUT_EVENT_ENTRIES);
+          "Request entries must be <= " + Conf.MAX_PUT_EVENT_ENTRIES);
+    }
+  }
+
+  @Configuration
+  public static class Conf {
+
+    private static final int MAX_PUT_EVENT_ENTRIES = 10;
+    private final Region region;
+
+    public Conf(@Value("${aws.region}") String region) {
+      this.region = Region.of(region);
+    }
+
+    @Bean
+    public EventBridgeClient getEventBridgeClient() {
+      return EventBridgeClient.builder().region(region).build();
     }
   }
 }

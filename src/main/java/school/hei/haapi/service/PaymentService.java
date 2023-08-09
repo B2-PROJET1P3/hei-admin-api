@@ -1,5 +1,8 @@
 package school.hei.haapi.service;
 
+import static org.springframework.data.domain.Sort.Direction.DESC;
+import static school.hei.haapi.endpoint.rest.model.Fee.StatusEnum.PAID;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -13,9 +16,6 @@ import school.hei.haapi.model.PageFromOne;
 import school.hei.haapi.model.Payment;
 import school.hei.haapi.model.validator.PaymentValidator;
 import school.hei.haapi.repository.PaymentRepository;
-
-import static org.springframework.data.domain.Sort.Direction.DESC;
-import static school.hei.haapi.endpoint.rest.model.Fee.StatusEnum.PAID;
 
 @Service
 @AllArgsConstructor

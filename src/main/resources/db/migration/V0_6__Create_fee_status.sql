@@ -7,5 +7,6 @@ $$
     end
 $$;
 
-alter table "fee" add column if not exists status fee_status default 'UNPAID';
+alter table "fee"
+    add column if not exists status fee_status default 'UNPAID';
 create index if not exists fee_status_index on "fee" (status);

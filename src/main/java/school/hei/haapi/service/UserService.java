@@ -1,5 +1,8 @@
 package school.hei.haapi.service;
 
+import static java.util.stream.Collectors.toUnmodifiableList;
+import static org.springframework.data.domain.Sort.Direction.ASC;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -16,9 +19,6 @@ import school.hei.haapi.model.User;
 import school.hei.haapi.model.validator.UserValidator;
 import school.hei.haapi.repository.UserRepository;
 import school.hei.haapi.repository.dao.UserManagerDao;
-
-import static java.util.stream.Collectors.toUnmodifiableList;
-import static org.springframework.data.domain.Sort.Direction.ASC;
 
 @Service
 @AllArgsConstructor

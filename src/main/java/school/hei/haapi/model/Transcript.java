@@ -2,6 +2,7 @@ package school.hei.haapi.model;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,12 +26,12 @@ import school.hei.haapi.endpoint.rest.model.Semester;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Transcript {
+public class Transcript implements Serializable {
   @Id
   @GeneratedValue(strategy = IDENTITY)
   private String id;
   @ManyToOne
-  @JoinColumn(name = "student_id")
+  @JoinColumn(name = "student")
   private User student;
   private Integer academicYear;
   private Semester semester;
