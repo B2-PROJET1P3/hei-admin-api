@@ -118,7 +118,7 @@ class ClaimIT {
     ApiClient teacher1Client = anApiClient(TEACHER1_TOKEN);
     TranscriptApi api = new TranscriptApi(teacher1Client);
     
-    List<Claim> claim = api.getStudentClaims(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,1,2);
+    List<Claim> claim = api.getStudentClaims(STUDENT1_ID,TRANSCRIPT1_ID,VERSION1_ID,1,5);
     
     Assertions.assertTrue(claim.contains(claim1()));
     Assertions.assertEquals(2,claim.size());
