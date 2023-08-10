@@ -31,6 +31,7 @@ import school.hei.haapi.endpoint.rest.model.Student;
 import school.hei.haapi.endpoint.rest.model.Teacher;
 import school.hei.haapi.endpoint.rest.model.Transcript;
 import school.hei.haapi.endpoint.rest.model.UpdateStudentCourse;
+import school.hei.haapi.endpoint.rest.model.Version;
 import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsRequest;
@@ -59,7 +60,14 @@ public class TestUtils {
   public static final String COURSE3_ID = "course3_id";
   public static final String COURSE4_ID = "course4_id";
   public static final String COURSE5_ID = "course5_id";
-
+  public static final String CLAIM1_ID = "claim1_id";
+  public static final String CLAIM2_ID = "claim2_id";
+  public static final String CLAIM3_ID = "claim3_id";
+  public static final String VERSION1_ID = "version1_id";
+  public static final String VERSION2_ID = "version2_id";
+  public static final String VERSION3_ID = "version3_id";
+  
+  
   public static final String BAD_TOKEN = "bad_token";
   public static final String STUDENT1_TOKEN = "student1_token";
   public static final String TEACHER1_TOKEN = "teacher1_token";
@@ -106,7 +114,32 @@ public class TestUtils {
         + "\"type\":\"403 FORBIDDEN\","
         + "\"message\":\"Access is denied\"}", responseBody);
   }
-
+  public static Version version1() {
+    return new Version()
+        .id(VERSION1_ID)
+        .ref(1)
+        .creationDatetime(Instant.parse("2023-02-08T09:30:24Z"))
+        .transcriptId(TRANSCRIPT1_ID)
+        .createdByUserId(TEACHER1_ID);
+  }
+  
+  public static Version version2() {
+    return new Version()
+        .id(VERSION2_ID)
+        .ref(2)
+        .creationDatetime(Instant.parse("2023-02-08T10:30:24Z"))
+        .transcriptId(TRANSCRIPT1_ID)
+        .createdByUserId(MANAGER_ID);
+  }
+  
+  public static Version version3() {
+    return new Version()
+        .id(VERSION3_ID)
+        .ref(1)
+        .creationDatetime(Instant.parse("2023-02-08T09:35:24Z"))
+        .transcriptId(TRANSCRIPT2_ID)
+        .createdByUserId(TEACHER2_ID);
+  }
   public static Teacher teacher1() {
     return new Teacher()
         .id("teacher1_id")
