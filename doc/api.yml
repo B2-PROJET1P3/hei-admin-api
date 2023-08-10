@@ -406,7 +406,7 @@ paths:
   /students/{student_id}/transcripts/{transcript_id}/versions:
     get:
       tags:
-        - Teaching
+        - Transcript
       summary: Get all version of a student transcript
       operationId: getAllStudentTranscriptVersion
       parameters:
@@ -450,7 +450,7 @@ paths:
   /students/{student_id}/transcripts/{transcript_id}/versions/{version_id}:
     get:
       tags:
-        - Teaching
+        - Transcript
       summary: Get details of specific version of a student transcript.
       operationId: getStudentTranscriptVersion
       parameters:
@@ -475,7 +475,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StudentTranscriptVersion'
+                $ref: '#/components/schemas/Version'
 
         '400':
           $ref: '#/components/responses/400'
@@ -490,7 +490,7 @@ paths:
   /students/{student_id}/transcripts/{transcript_id}/versions/{version_id}/raw:
     get:
       tags:
-        - Teaching
+        - Transcript
       summary: Get pdf of a specific version of a student transcript.
       operationId: getStudentTranscriptVersionPdf
       parameters:
@@ -532,7 +532,7 @@ paths:
   /students/{student_id}/transcripts/{transcript_id}/versions/latest/raw:
     post:
       tags:
-        - Teaching
+        - Transcript
       summary: Submit transcript pdf file to latest transcript version
       operationId: putStudentTranscriptVersionPdf
       parameters:
@@ -1868,8 +1868,6 @@ components:
       properties:
         id:
           type: string
-        semester:
-          $ref: '#/components/schemas/Semester'
         academic_year:
           type: integer
         is_definitive:
@@ -1877,6 +1875,7 @@ components:
         creation_datetime:
           type: string
           format: date-time
+
     CrupdateTranscript:
       allOf:
         - $ref: '#/components/schemas/TranscriptTemplate'
@@ -1884,13 +1883,17 @@ components:
       properties:
         student_id:
           type: string
+
     Transcript:
       allOf:
         - $ref: '#/components/schemas/TranscriptTemplate'
-      type: object
-      properties:
-        student:
-          $ref: '#/components/schemas/Student'
+        - type: object
+          properties:
+            semester:
+              $ref: '#/components/schemas/Semester'
+
+            student:
+              $ref: '#/components/schemas/Student'
     Semester:
       type: string
       enum:
@@ -1908,7 +1911,7 @@ components:
         transcript_id:
           type: string
         ref:
-          type: number
+          type: integer
         created_by_user_id:
           type: string
         created_by_user_role:

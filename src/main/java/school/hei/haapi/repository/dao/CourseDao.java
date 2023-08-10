@@ -1,5 +1,8 @@
 package school.hei.haapi.repository.dao;
 
+import static school.hei.haapi.endpoint.rest.model.CourseStatus.LINKED;
+import static school.hei.haapi.endpoint.rest.model.CourseStatus.UNLINKED;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -18,9 +21,6 @@ import school.hei.haapi.endpoint.rest.model.CourseStatus;
 import school.hei.haapi.model.Course;
 import school.hei.haapi.model.StudentCourse;
 import school.hei.haapi.model.User;
-
-import static school.hei.haapi.endpoint.rest.model.CourseStatus.LINKED;
-import static school.hei.haapi.endpoint.rest.model.CourseStatus.UNLINKED;
 
 @Repository
 @AllArgsConstructor

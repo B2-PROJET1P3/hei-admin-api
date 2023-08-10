@@ -17,7 +17,7 @@ public class TranscriptMapper {
         .semester(domain.getSemester());
   }
 
-  public school.hei.haapi.model.Transcript toDomain(Transcript rest, User student){
+  public school.hei.haapi.model.Transcript toDomain(Transcript rest, User student) {
     return school.hei.haapi.model.Transcript.builder()
         .id(rest.getId())
         .academicYear(rest.getAcademicYear())

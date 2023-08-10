@@ -1,5 +1,7 @@
-alter table "fee" add column if not exists remaining_amount integer;
-alter table "fee" add column if not exists updated_at timestamp without time zone default now();
+alter table "fee"
+    add column if not exists remaining_amount integer;
+alter table "fee"
+    add column if not exists updated_at timestamp without time zone default now();
 
 create or replace function update_updated_at_fee()
     returns trigger as

@@ -15,14 +15,16 @@ import school.hei.haapi.repository.VersionRepository;
 public class VersionService {
   private final VersionRepository repository;
 
-  public List<Version> getVersions(String studentId, String transcriptId, PageFromOne page, BoundedPageSize pageSize){
+
+  public List<Version> getVersions(String transcriptId, PageFromOne page, BoundedPageSize pageSize){
     Pageable pageable = PageRequest.of(
         page.getValue() - 1,
         pageSize.getValue());
-    return repository.findAllByCreatedBy_IdAndTranscript_Id(studentId,transcriptId, pageable);
+    return repository.findAllByTranscript_Id(transcriptId, pageable);
   }
 
-  public Version getVersionById(String studentId, String transcriptId, String versionId){
-    return repository.getVersionByCreatedBy_IdAndTranscript_IdAndId(studentId, transcriptId, versionId);
+  public Version getVersionById(String transcriptId, String versionId){
+    return repository.getVersionByTranscript_IdAndId(transcriptId, versionId);
+
   }
 }

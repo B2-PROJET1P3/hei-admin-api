@@ -1,5 +1,16 @@
 package school.hei.haapi.integration.conf;
 
+import static java.util.UUID.randomUUID;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import static school.hei.haapi.endpoint.rest.model.CourseStatus.LINKED;
+import static school.hei.haapi.endpoint.rest.model.Fee.StatusEnum.LATE;
+import static school.hei.haapi.endpoint.rest.model.Fee.StatusEnum.PAID;
+import static school.hei.haapi.endpoint.rest.model.Fee.TypeEnum.HARDWARE;
+import static school.hei.haapi.endpoint.rest.model.Fee.TypeEnum.TUITION;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.time.Instant;
@@ -24,17 +35,6 @@ import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
 import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsRequest;
 import software.amazon.awssdk.services.eventbridge.model.PutEventsResponse;
-
-import static java.util.UUID.randomUUID;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-import static school.hei.haapi.endpoint.rest.model.CourseStatus.LINKED;
-import static school.hei.haapi.endpoint.rest.model.Fee.StatusEnum.LATE;
-import static school.hei.haapi.endpoint.rest.model.Fee.StatusEnum.PAID;
-import static school.hei.haapi.endpoint.rest.model.Fee.TypeEnum.HARDWARE;
-import static school.hei.haapi.endpoint.rest.model.Fee.TypeEnum.TUITION;
 
 public class TestUtils {
 
@@ -67,6 +67,9 @@ public class TestUtils {
 
   public static final String TRANSCRIPT1_ID = "transcript1_id";
   public static final String TRANSCRIPT2_ID = "transcript2_id";
+  public static final String TRANSCRIPT3_ID = "transcript3_id";
+  public static final String TRANSCRIPT4_ID = "transcript4_id";
+  public static final String NEW_TRANSCRIPT_ID = "new_transcript_id";
 
   public static ApiClient anApiClient(String token, int serverPort) {
     ApiClient client = new ApiClient();
@@ -305,7 +308,7 @@ public class TestUtils {
         .dueDatetime(Instant.parse("2021-12-09T08:25:24.00Z"));
   }
 
-  public static Transcript transcript1(){
+  public static Transcript transcript1() {
     return new Transcript()
         .id(TRANSCRIPT1_ID)
         .academicYear(2023)
@@ -314,7 +317,8 @@ public class TestUtils {
         .isDefinitive(true)
         .semester(Semester.S1);
   }
-  public static Transcript transcript2(){
+
+  public static Transcript transcript2() {
     return new Transcript()
         .id(TRANSCRIPT2_ID)
         .academicYear(2024)
@@ -322,6 +326,26 @@ public class TestUtils {
         .student(student2())
         .isDefinitive(true)
         .semester(Semester.S2);
+  }
+
+  static Transcript transcript3() {
+    return new Transcript()
+        .id(TRANSCRIPT2_ID)
+        .student(student2())
+        .semester(Semester.S6)
+        .academicYear(2023)
+        .isDefinitive(true)
+        .creationDatetime(Instant.parse("2023-11-10T08:25:25.00Z"));
+  }
+
+  static Transcript transcript4() {
+    return new Transcript()
+        .id(TRANSCRIPT4_ID)
+        .student(student2())
+        .semester(Semester.S5)
+        .academicYear(2024)
+        .isDefinitive(true)
+        .creationDatetime(Instant.parse("2024-11-12T08:25:26.00Z"));
   }
 
   public static Student student1() {

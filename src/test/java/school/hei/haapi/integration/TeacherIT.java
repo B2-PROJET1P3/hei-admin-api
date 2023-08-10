@@ -1,28 +1,5 @@
 package school.hei.haapi.integration;
 
-import java.util.List;
-import java.util.Objects;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import school.hei.haapi.SentryConf;
-import school.hei.haapi.endpoint.rest.api.UsersApi;
-import school.hei.haapi.endpoint.rest.client.ApiClient;
-import school.hei.haapi.endpoint.rest.client.ApiException;
-import school.hei.haapi.endpoint.rest.mapper.UserMapper;
-import school.hei.haapi.endpoint.rest.model.Teacher;
-import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
-import school.hei.haapi.integration.conf.AbstractContextInitializer;
-import school.hei.haapi.integration.conf.TestUtils;
-import school.hei.haapi.service.UserService;
-import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
-import software.amazon.awssdk.services.eventbridge.model.PutEventsRequest;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -46,6 +23,29 @@ import static school.hei.haapi.integration.conf.TestUtils.someCreatableTeacher;
 import static school.hei.haapi.integration.conf.TestUtils.someCreatableTeacherList;
 import static school.hei.haapi.integration.conf.TestUtils.teacher1;
 import static school.hei.haapi.integration.conf.TestUtils.teacher2;
+
+import java.util.List;
+import java.util.Objects;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import school.hei.haapi.SentryConf;
+import school.hei.haapi.endpoint.rest.api.UsersApi;
+import school.hei.haapi.endpoint.rest.client.ApiClient;
+import school.hei.haapi.endpoint.rest.client.ApiException;
+import school.hei.haapi.endpoint.rest.mapper.UserMapper;
+import school.hei.haapi.endpoint.rest.model.Teacher;
+import school.hei.haapi.endpoint.rest.security.cognito.CognitoComponent;
+import school.hei.haapi.integration.conf.AbstractContextInitializer;
+import school.hei.haapi.integration.conf.TestUtils;
+import school.hei.haapi.service.UserService;
+import software.amazon.awssdk.services.eventbridge.EventBridgeClient;
+import software.amazon.awssdk.services.eventbridge.model.PutEventsRequest;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @Testcontainers
