@@ -1,5 +1,7 @@
 package school.hei.haapi.repository.dao;
 
+import static school.hei.haapi.endpoint.rest.model.CourseStatus.LINKED;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,8 +16,6 @@ import org.springframework.stereotype.Repository;
 import school.hei.haapi.model.Course;
 import school.hei.haapi.model.StudentCourse;
 import school.hei.haapi.model.User;
-
-import static school.hei.haapi.endpoint.rest.model.CourseStatus.LINKED;
 
 @Repository
 @AllArgsConstructor

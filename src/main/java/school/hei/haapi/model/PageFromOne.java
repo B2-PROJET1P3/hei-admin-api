@@ -3,9 +3,9 @@ package school.hei.haapi.model;
 import lombok.Getter;
 import school.hei.haapi.model.exception.BadRequestException;
 
+@Getter
 public class PageFromOne {
 
-  @Getter
   private final int value;
 
   public PageFromOne(int value) {

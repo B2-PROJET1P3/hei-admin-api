@@ -4,10 +4,13 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,42 +18,28 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Type;
+import school.hei.haapi.endpoint.rest.model.Semester;
 
 @Entity
-@Table(name = "\"group\"")
+@Table(name = "\"transcript\"")
 @Getter
 @Setter
 @ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Group implements Serializable {
+public class Transcript implements Serializable {
   @Id
   @GeneratedValue(strategy = IDENTITY)
   private String id;
-
-  private String name;
-  private String ref;
-
-  @CreationTimestamp
+  @ManyToOne
+  @JoinColumn(name = "student")
+  private User student;
+  private Integer academicYear;
+  @Type(type = "pgsql_enum")
+  @Enumerated(EnumType.STRING)
+  private Semester semester;
+  private boolean isDefinitive;
   private Instant creationDatetime;
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
-      return false;
-    }
-    Group user = (Group) o;
-    return id != null && Objects.equals(id, user.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return getClass().hashCode();
-  }
 }

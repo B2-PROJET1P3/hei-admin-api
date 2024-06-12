@@ -1,5 +1,13 @@
 package school.hei.haapi.endpoint.rest.security;
 
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.OPTIONS;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
+import static school.hei.haapi.endpoint.rest.security.model.Role.MANAGER;
+import static school.hei.haapi.endpoint.rest.security.model.Role.STUDENT;
+import static school.hei.haapi.endpoint.rest.security.model.Role.TEACHER;
+
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,20 +22,14 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import school.hei.haapi.model.exception.ForbiddenException;
 
-import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.http.HttpMethod.OPTIONS;
-import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.http.HttpMethod.PUT;
-import static school.hei.haapi.endpoint.rest.security.model.Role.MANAGER;
-import static school.hei.haapi.endpoint.rest.security.model.Role.STUDENT;
-import static school.hei.haapi.endpoint.rest.security.model.Role.TEACHER;
-
 @Configuration
 @Slf4j
 public class SecurityConf extends WebSecurityConfigurerAdapter {
 
   private static final String AUTHORIZATION_HEADER = "Authorization";
   private static final String STUDENT_COURSE = "/students/*/courses";
+  private static final String TRANSCRIPT = "/students/*/transcripts";
+
 
   private final AuthProvider authProvider;
   private final HandlerExceptionResolver exceptionResolver;
@@ -106,6 +108,12 @@ public class SecurityConf extends WebSecurityConfigurerAdapter {
         .requestMatchers(new SelfMatcher(GET, STUDENT_COURSE)).hasAnyRole(STUDENT.getRole())
         .antMatchers(GET, STUDENT_COURSE).hasAnyRole(TEACHER.getRole(), MANAGER.getRole())
         .antMatchers(PUT, STUDENT_COURSE).hasAnyRole(MANAGER.getRole())
+
+        .requestMatchers(new SelfMatcher(GET, TRANSCRIPT)).hasAnyRole(STUDENT.getRole())
+        .requestMatchers(new SelfMatcher(GET, TRANSCRIPT + "/*")).hasAnyRole(STUDENT.getRole())
+        .antMatchers(GET,TRANSCRIPT).hasAnyRole(TEACHER.getRole(),MANAGER.getRole())
+        .antMatchers(GET,TRANSCRIPT + "/*").hasAnyRole(TEACHER.getRole(),MANAGER.getRole())
+
         .antMatchers("/**").denyAll()
 
         // disable superfluous protections

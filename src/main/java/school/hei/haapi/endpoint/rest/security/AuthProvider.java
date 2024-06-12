@@ -21,6 +21,12 @@ public class AuthProvider extends AbstractUserDetailsAuthenticationProvider {
   private final UserService userService;
   private final CognitoComponent cognitoComponent;
 
+  public static Principal getPrincipal() {
+    SecurityContext context = SecurityContextHolder.getContext();
+    Authentication authentication = context.getAuthentication();
+    return (Principal) authentication.getPrincipal();
+  }
+
   @Override
   protected void additionalAuthenticationChecks(
       UserDetails userDetails, UsernamePasswordAuthenticationToken token) {
@@ -50,11 +56,5 @@ public class AuthProvider extends AbstractUserDetailsAuthenticationProvider {
       return null;
     }
     return ((String) tokenObject).substring(BEARER_PREFIX.length()).trim();
-  }
-
-  public static Principal getPrincipal() {
-    SecurityContext context = SecurityContextHolder.getContext();
-    Authentication authentication = context.getAuthentication();
-    return (Principal) authentication.getPrincipal();
   }
 }

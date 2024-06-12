@@ -1,5 +1,6 @@
 package school.hei.haapi.endpoint.event;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,9 @@ import software.amazon.awssdk.services.sqs.SqsClient;
 @Configuration
 public class EventConf {
   private final Region region;
+  @Getter
   private final String sesSource;
+  @Getter
   private final String sesContact;
 
   public EventConf(@Value("${aws.region}") String region,
@@ -33,14 +36,6 @@ public class EventConf {
     return SesClient.builder()
         .region(region)
         .build();
-  }
-
-  public String getSesSource() {
-    return this.sesSource;
-  }
-
-  public String getSesContact() {
-    return this.sesContact;
   }
 
 }
