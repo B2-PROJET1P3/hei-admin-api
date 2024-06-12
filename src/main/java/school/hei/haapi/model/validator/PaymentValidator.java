@@ -1,5 +1,7 @@
 package school.hei.haapi.model.validator;
 
+import static school.hei.haapi.endpoint.rest.model.Payment.TypeEnum.CASH;
+
 import java.util.List;
 import java.util.function.Consumer;
 import org.springframework.stereotype.Component;
@@ -7,8 +9,6 @@ import school.hei.haapi.model.Fee;
 import school.hei.haapi.model.Payment;
 import school.hei.haapi.model.exception.BadRequestException;
 import school.hei.haapi.model.exception.NotImplementedException;
-
-import static school.hei.haapi.endpoint.rest.model.Payment.TypeEnum.CASH;
 
 @Component
 public class PaymentValidator implements Consumer<Payment> {

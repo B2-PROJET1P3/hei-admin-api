@@ -1,5 +1,8 @@
 package school.hei.haapi.service;
 
+import static org.springframework.data.domain.Sort.Direction.ASC;
+import static school.hei.haapi.endpoint.rest.model.CourseStatus.LINKED;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -21,9 +24,6 @@ import school.hei.haapi.repository.CourseRepository;
 import school.hei.haapi.repository.StudentCourseRepository;
 import school.hei.haapi.repository.UserRepository;
 import school.hei.haapi.repository.dao.CourseDao;
-
-import static org.springframework.data.domain.Sort.Direction.ASC;
-import static school.hei.haapi.endpoint.rest.model.CourseStatus.LINKED;
 
 @Service
 @AllArgsConstructor

@@ -2,9 +2,9 @@ package school.hei.haapi.model.exception;
 
 import lombok.Getter;
 
+@Getter
 public class ApiException extends RuntimeException {
 
-  @Getter
   private final ExceptionType type;
 
   public ApiException(ExceptionType type, String message) {
